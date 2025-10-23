@@ -2,7 +2,7 @@
 
 @media (max-width: 768px) { /* medium screens */
   .user-page-grid {
-    grid-template-columns: 0.5fr 86px 0.2fr 1.8fr 0.5fr;
+    grid-template-columns: 0.5fr 100px 0.2fr 1.8fr 0.5fr;
     grid-template-rows: auto auto 1fr;
   }
 
@@ -22,7 +22,7 @@
 
 @media (min-width: 769px) { /* desktop screens (>= 769px) */
   .user-page-grid {
-    grid-template-columns: 2fr 86px 1.5fr 1fr;
+    grid-template-columns: 2fr 100px 1.5fr 1fr;
     grid-template-rows: 1fr 300px 1fr;
 
     align-items: center;
