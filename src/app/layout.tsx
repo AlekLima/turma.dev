@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Changa, Coustard } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+export const changaSans = Changa({
+  variable: "--font-changa",
   subsets: ["latin"],
+  weight: ["400"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const courstardSans = Coustard({
+  variable: "--font-courstard-sans",
   subsets: ["latin"],
+  weight: ["400", "900"],
 });
 
 export const metadata: Metadata = {
@@ -25,9 +28,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`bg-background text-foreground ${changaSans.className} ${courstardSans.className} antialiased`}
       >
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+          {/* <ThemeToggle/> */}
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

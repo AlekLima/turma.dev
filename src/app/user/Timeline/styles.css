@@ -1,0 +1,3 @@
+.scroll-area [data-orientation="vertical"] .scrollbar-thumb {
+  background-color: hsl(var(--primary)); /* 🎨 usa a cor primária */
+}
