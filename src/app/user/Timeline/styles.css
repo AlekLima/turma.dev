@@ -1,3 +1,4 @@
+/* Define scroll bar color */
 .scroll-area [data-orientation="vertical"] .scrollbar-thumb {
-  background-color: hsl(var(--primary)); /* 🎨 usa a cor primária */
+  background-color: hsl(var(--primary));
 }

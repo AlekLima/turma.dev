@@ -1,4 +1,4 @@
-import { changaSans } from "@/app/layout";
+import { suseMono } from "@/app/layout";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
@@ -8,27 +8,43 @@ type TimelineItemProps = {
 };
 
 export default function Timeline({ years }: TimelineItemProps) {
-
-  const isSelected = true; // Placeholder logic for selected year
-  const selectedStyle = "bg-accent-50";
-
   return (
-    <ScrollArea className="z-1 timeline-container scroll-area flex flex-col max-h-[300px]  ">
+    <ScrollArea className="z-1 timeline-container scroll-area flex flex-col max-h-[300px]">
       {years.map((year) => (
-        <Button
-          variant="ghost"
-          key={year}
-          className={cn("ml-[20px] overflow-visible rounded-none border-zinc-100 border-l-[3px]", isSelected && selectedStyle)}
-        >
-          {isSelected && (
-            <div className="relative left-[-26px] z-[999] flex items-center justify-center w-5 h-5">
-              <div className="absolute w-2 h-2 rounded-full bg-primary"></div>
-              <div className="absolute w-4 h-4 rounded-full border-2 border-primary"></div>
-            </div>
-          )}
-          <span className={`text-[16px] relative left-[-26px] ${changaSans.variable}`}>{year}</span>
-        </Button>
+        <YearButton key={year} year={year} />
       ))}
     </ScrollArea>
   );
+}
+
+type YearButtonProps = {
+  year: number;
+}
+
+function YearButton({ year }: YearButtonProps) {
+  const isSelected = true;
+  const selectedStyle = "bg-accent-50 border-r-[3px] border-r-zinc-900 mr-[12px]";
+  const selectedButtonStyle = "bg-accent-50";
+
+  return (
+    <div className={cn("flex items-center", isSelected && selectedStyle)}>
+      {isSelected && <LeftCircle />}
+      <Button
+        variant="ghost"
+        key={year}
+        className={cn("pr-[8px] rounded-none border-zinc-100 border-l-[3px]", isSelected && selectedButtonStyle)}
+      >
+        <span className={`text-[16px] ${suseMono.variable}`}>{year}</span>
+      </Button>
+    </div>
+  );
+}
+
+function LeftCircle() {
+  return (
+    <div className="relative -right-[12px] z-[999] flex items-center justify-center w-5 h-5">
+      <div className="absolute w-2 h-2 rounded-full bg-primary"></div>
+      <div className="absolute w-4 h-4 rounded-full border-2 border-primary"></div>
+    </div>
+  )
 }
