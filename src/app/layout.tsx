@@ -1,12 +1,18 @@
 import type { Metadata } from "next";
-import { Changa, Coustard } from "next/font/google";
+import { Coustard, Monomaniac_One, SUSE } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
-export const changaSans = Changa({
-  variable: "--font-changa",
+export const monomaniac = Monomaniac_One({
   subsets: ["latin"],
   weight: ["400"],
+  variable: "--font-monomaniac",
+});
+
+export const suseMono = SUSE({
+  subsets: ["latin"],
+  weight: ["600"],
+  variable: "--font-suse-mono",
 });
 
 const courstardSans = Coustard({
@@ -28,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`bg-background text-foreground ${changaSans.className} ${courstardSans.className} antialiased`}
+        className={`bg-background text-foreground ${suseMono.className} antialiased`}
       >
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           {/* <ThemeToggle/> */}
