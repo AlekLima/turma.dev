@@ -13,12 +13,20 @@ export default function User({ name, lastName, profilePhotoUrl, urls }: UserProp
 
   return (
     <div className="user-container flex items-center justify-end h-full">
-      <div className="flex flex-col items-center justify-center mr-8">
-        <Avatar className="w-[80px] h-[80px] mb-4 border-[3px] border-zinc-200">
-          <AvatarImage src={profilePhotoUrl}/>
-          <AvatarFallback>{nameInitials}</AvatarFallback>
-        </Avatar>
-        <h2 className="text-center pb-[4px] mb-[24px] px-[12px] border-b-[2px] border-b-zinc-200">{`${name} ${lastName}`}</h2>
+      <div className="flex flex-col w-full items-end justify-center mr-8">
+
+        <div className="flex flex-col items-center pr-8">
+          <Avatar className="w-[80px] h-[80px] mb-4 border-[3px] border-zinc-200">
+            <AvatarImage src={profilePhotoUrl}/>
+            <AvatarFallback>{nameInitials}</AvatarFallback>
+          </Avatar>
+          <h2 className="text-center w-full flex justify-end">
+            {`${name} ${lastName}`}
+          </h2>
+        </div>
+
+        <div className="w-full h-[2px] mb-4 mt-2 pr-8 border-b-[2px] border-b-zinc-200"></div>
+
         <GoToSection goToUrls={urls}/>
       </div>
     </div>
@@ -27,7 +35,7 @@ export default function User({ name, lastName, profilePhotoUrl, urls }: UserProp
 
 function GoToSection({ goToUrls }: GoToSectionProps) {
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 pr-4">
       {goToUrls.map((url: string) => (
         <GoToButton key={url} url={url} />
       ))}
