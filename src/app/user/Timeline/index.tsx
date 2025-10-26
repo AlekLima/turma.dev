@@ -2,10 +2,7 @@ import { suseMono } from "@/app/layout";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
-
-type TimelineItemProps = {
-  years: number[];
-};
+import { TimelineItemProps, YearButtonProps } from "./types";
 
 export default function Timeline({ years }: TimelineItemProps) {
   return (
@@ -15,10 +12,6 @@ export default function Timeline({ years }: TimelineItemProps) {
       ))}
     </ScrollArea>
   );
-}
-
-type YearButtonProps = {
-  year: number;
 }
 
 function YearButton({ year }: YearButtonProps) {
