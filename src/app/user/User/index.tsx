@@ -47,7 +47,7 @@ export default function User(userData: UserProps) {
 
 function GoToSection({ goToUrls }: GoToSectionProps) {
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 pr-4">
       {goToUrls.map((url: string) => (
         <GoToButton key={url} url={url} />
       ))}
