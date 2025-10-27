@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { GithubLogoIcon, GlobeIcon, LinkedinLogoIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { ReactNode } from "react";
-import { GoToButtonProps, GoToButtonStyles, GoToButtonType, GoToSectionProps, UserProps } from "./types";
-import { getGoButtonStyles, urlToGoToButtonTypeRegex } from "./utils";
+import { GoToButtonProps, GoToButtonType, GoToSectionProps, UserProps } from "./types";
+import { urlToGoToButtonTypeRegex } from "./utils";
 
 function RightUserInfo({ name, lastName, profilePhotoUrl, urls}: UserProps) {
   const nameInitials: string = `${name.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`
@@ -55,14 +55,32 @@ function GoToSection({ goToUrls }: GoToSectionProps) {
   )
 }
 
-function getGoButtonIcon(type: GoToButtonType): ReactNode {
+function getGoButton(type: GoToButtonType, url: string): ReactNode {
   switch(type)  {
     case GoToButtonType.GITHUB:
-      return <GithubLogoIcon weight="duotone" size={32} color="oklch(55.2% 0.016 285.938)"/>;
+      return (
+        <Button variant="outline" size="icon" className="rounded-lg cursor-pointer border- hover:bg-zinc-100">
+          <Link href={url} target="_blank">
+            <GithubLogoIcon weight="duotone" size={32} color="oklch(55.2% 0.016 285.938)"/>
+          </Link>
+        </Button>
+      );
     case GoToButtonType.LINKEDIN:
-      return <LinkedinLogoIcon weight="duotone" size={32} color="oklch(62.3% 0.214 259.815)" />;
+      return (
+      <Button variant="outline" size="icon" className="rounded-lg cursor-pointer border-blue-200 hover:bg-blue-50">
+          <Link href={url} target="_blank">
+            <LinkedinLogoIcon weight="duotone" size={32} color="oklch(62.3% 0.214 259.815)" />
+          </Link>
+        </Button>
+      );
     case GoToButtonType.WEBSITE:
-      return <GlobeIcon weight="duotone" size={32} color="oklch(60.6% 0.25 292.717)"/>;
+      return (
+      <Button variant="outline" size="icon" className="rounded-lg cursor-pointer border-violet-200 hover:bg-violet-50">
+        <Link href={url} target="_blank">
+          <GlobeIcon weight="duotone" size={32} color="oklch(60.6% 0.25 292.717)"/>
+        </Link>
+      </Button>
+    );
     default:
       return null;
   }
@@ -70,19 +88,12 @@ function getGoButtonIcon(type: GoToButtonType): ReactNode {
 
 function GoToButton({ url } : GoToButtonProps) {
   const type : GoToButtonType = urlToGoToButtonTypeRegex(url);
-  const icon : ReactNode = getGoButtonIcon(type);
-  const { borderColor, hoverBgColor }: GoToButtonStyles = getGoButtonStyles(type);
+  const renderGoToButton : ReactNode = getGoButton(type, url);
 
   if (type === GoToButtonType.INVALID) {
     console.error(`Invalid URL provided to GoToButton: ${url}`);
     return null;
   }
 
-  return (
-    <Button variant="outline" size="icon" className={`rounded-lg cursor-pointer border-${borderColor} hover:bg-${hoverBgColor}`}>
-      <Link href={url} target="_blank">
-        {icon}
-      </Link>
-    </Button>
-  )
+  return renderGoToButton;
 }

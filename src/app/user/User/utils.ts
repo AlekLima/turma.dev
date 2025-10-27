@@ -1,4 +1,4 @@
-import { GoToButtonStyles, GoToButtonType } from "./types";
+import { GoToButtonType } from "./types";
 
 export function urlToGoToButtonTypeRegex(url: string): GoToButtonType {
   const input = url.toLowerCase();
@@ -17,26 +17,4 @@ export function urlToGoToButtonTypeRegex(url: string): GoToButtonType {
   if (isLikelyUrl) return GoToButtonType.WEBSITE;
 
   return GoToButtonType.INVALID;
-}
-
-export function getGoButtonStyles(type: GoToButtonType): GoToButtonStyles {
-  switch(type)  {
-    case GoToButtonType.GITHUB:
-      return {
-        borderColor: "zinc-300",
-        hoverBgColor: "zinc-100",
-      };
-    case GoToButtonType.LINKEDIN:
-      return {
-        borderColor: "blue-200",
-        hoverBgColor: "blue-50",
-      };
-    case GoToButtonType.WEBSITE:
-      return {
-        borderColor: "violet-200",
-        hoverBgColor: "violet-50",
-      };
-    default:
-      return { borderColor: "zinc-300", hoverBgColor: "zinc-100"};
-  }
 }
