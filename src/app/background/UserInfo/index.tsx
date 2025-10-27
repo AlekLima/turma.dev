@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button";
 import { GithubLogoIcon, GlobeIcon, LinkedinLogoIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { ReactNode } from "react";
-import { GoToButtonProps, GoToButtonType, GoToSectionProps, UserProps } from "./types";
+import { GoToButtonProps, GoToButtonType, GoToSectionProps, UserInfoProps } from "./types";
 import { urlToGoToButtonTypeRegex } from "./utils";
 
-export default function UserInfo(userData: UserProps) {
+export default function UserInfo(userData: UserInfoProps) {
   return (
     <div className="user-container flex items-center justify-end h-full w-full">
       <div className="w-full flex flex-col items-center justify-center">
@@ -22,7 +22,7 @@ export default function UserInfo(userData: UserProps) {
   )
 }
 
-function RightContent({ name, lastName, profilePhotoUrl, urls}: UserProps) {
+function RightContent({ name, lastName, profilePhotoUrl, urls}: UserInfoProps) {
   const nameInitials: string = `${name.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`
 
   return (

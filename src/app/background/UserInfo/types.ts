@@ -5,7 +5,7 @@ export enum GoToButtonType {
   INVALID
 }
 
-export type UserProps = {
+export type UserInfoProps = {
   name: string
   lastName: string
   profilePhotoUrl: string
@@ -18,9 +18,4 @@ export type GoToSectionProps = {
 
 export type GoToButtonProps = {
   url: string
-}
-
-export type GoToButtonStyles = {
-  borderColor: string
-  hoverBgColor: string
 }
