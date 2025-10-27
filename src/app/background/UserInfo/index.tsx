@@ -8,7 +8,21 @@ import { ReactNode } from "react";
 import { GoToButtonProps, GoToButtonType, GoToSectionProps, UserProps } from "./types";
 import { urlToGoToButtonTypeRegex } from "./utils";
 
-function RightUserInfo({ name, lastName, profilePhotoUrl, urls}: UserProps) {
+export default function UserInfo(userData: UserProps) {
+  return (
+    <div className="user-container flex items-center justify-end h-full w-full">
+      <div className="w-full flex flex-col items-center justify-center">
+        <div className="h-[120px]"></div>
+        <div className="w-full h-[2px] mb-4 mt-2 border-b-[2px] border-b-zinc-200"></div>
+        <div className="h-[36px]"></div>
+      </div>
+
+      <RightContent {...userData }/>
+    </div>
+  )
+}
+
+function RightContent({ name, lastName, profilePhotoUrl, urls}: UserProps) {
   const nameInitials: string = `${name.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`
 
   return (
@@ -26,21 +40,6 @@ function RightUserInfo({ name, lastName, profilePhotoUrl, urls}: UserProps) {
       <div className="w-full h-[2px] mb-4 mt-2 border-b-[2px] border-b-zinc-200"></div>
 
       <GoToSection goToUrls={urls}/>
-    </div>
-  )
-}
-
-export default function User(userData: UserProps) {
-
-  return (
-    <div className="user-container flex items-center justify-end h-full w-full">
-      <div className="w-full flex flex-col items-center justify-center">
-        <div className="h-[120px]"></div>
-        <div className="w-full h-[2px] mb-4 mt-2 border-b-[2px] border-b-zinc-200"></div>
-        <div className="h-[36px]"></div>
-      </div>
-
-      <RightUserInfo {...userData }/>
     </div>
   )
 }

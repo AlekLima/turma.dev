@@ -1,4 +1,4 @@
-import User from "./User";
+import UserInfo from "./UserInfo";
 import Timeline from "./Timeline";
 import "./styles.css"
 
@@ -18,7 +18,7 @@ const userData = {
 export default function UserPage() {
   return (
     <main className="user-page-grid grid my-auto min-h-screen">
-      <User {...userData}/>
+      <UserInfo {...userData}/>
       <Timeline years={listOfYears} />
       <div className="content-container flex items-center justify-center h-full">left content</div>
     </main>
