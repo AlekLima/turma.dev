@@ -1,25 +1,7 @@
 import type { Metadata } from "next";
-import { Coustard, Monomaniac_One, SUSE } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-
-export const monomaniac = Monomaniac_One({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-monomaniac",
-});
-
-export const suseMono = SUSE({
-  subsets: ["latin"],
-  weight: ["600"],
-  variable: "--font-suse-mono",
-});
-
-const courstardSans = Coustard({
-  variable: "--font-courstard-sans",
-  subsets: ["latin"],
-  weight: ["400", "900"],
-});
+import { suseMono } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: "Create Next App",
