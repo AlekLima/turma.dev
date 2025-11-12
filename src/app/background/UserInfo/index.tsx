@@ -7,26 +7,35 @@ import Link from "next/link";
 import { ReactNode } from "react";
 import { GoToButtonProps, GoToButtonType, GoToSectionProps, UserInfoProps } from "./types";
 import { urlToGoToButtonTypeRegex } from "./utils";
+import { cn } from "@/lib/utils";
 
 export default function UserInfo(userData: UserInfoProps) {
   return (
     <div className="user-container flex items-center justify-end h-full w-full">
-      <div className="w-full flex flex-col items-center justify-center">
-        <div className="h-[120px]"></div>
-        <div className="w-full h-[2px] mb-4 mt-2 border-b-[2px] border-b-zinc-200"></div>
-        <div className="h-[36px]"></div>
-      </div>
-
-      <RightContent {...userData }/>
+      <GrowingLine/>
+      <RightContainer {...userData }/>
+      <GrowingLine hiddenOnDesktop/>
     </div>
   )
 }
 
-function RightContent({ name, lastName, profilePhotoUrl, urls}: UserInfoProps) {
+type GrowingLineProps = { hiddenOnDesktop?: boolean }
+
+function GrowingLine({ hiddenOnDesktop = false} : GrowingLineProps) {
+  return (
+    <div className={cn(`w-full flex flex-col items-center justify-center`, hiddenOnDesktop && "md:hidden")}>
+      <div className="h-[120px]"></div>
+      <div className="w-full h-[2px] mb-4 mt-2 border-b-[2px] border-b-zinc-200"></div>
+      <div className="h-[36px]"></div>
+    </div>
+  )
+}
+
+function RightContainer({ name, lastName, profilePhotoUrl, urls}: UserInfoProps) {
   const nameInitials: string = `${name.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`
 
   return (
-    <div className="w-fit flex flex-col items-center justify-center mr-8">
+    <div className="min-w-[300px] md:w-fit flex flex-col items-center justify-center md:mr-8">
       <div className="flex flex-col items-center">
         <Avatar className="w-[80px] h-[80px] mb-4 border-[3px] border-zinc-200">
           <AvatarImage src={profilePhotoUrl}/>
