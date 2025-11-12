@@ -100,7 +100,7 @@ function ProjectsList({ projects }: { projects?: { url: string; name: string }[]
           (project, index) => {
             const isNotUniqueOrLast = projects.length !== 1 && index < projects.length - 1;
 
-            return <ProjectButton key={project.url} project={project} isNotUniqueOrLast={isNotUniqueOrLast}/>
+            return <ProjectButton key={project.name} project={project} isNotUniqueOrLast={isNotUniqueOrLast}/>
           }
         )}
       </ul>

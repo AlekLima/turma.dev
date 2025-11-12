@@ -1,7 +1,7 @@
-import UserInfo from "./UserInfo";
-import Timeline from "./Timeline";
+import UserInfo from "../../components/custom/UserInfo";
+import Timeline from "../../components/custom/Timeline";
 import "./styles.css"
-import ContentItem from "./ContentItem";
+import ContentItem from "../../components/custom/ContentItem";
 import { contentData, listOfYears, userData } from "@/background-data";
 import { ScrollArea } from "@/components/ui/scroll-area";
 

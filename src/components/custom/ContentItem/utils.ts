@@ -56,15 +56,32 @@ export function numberToMonthPTBR(monthNumber: number): string | null {
 
 let lastColor: ColorKey | null = null;
 
+
+/**
+ * Return a pseudo-random `ColorKey` selected from `colorMap`.
+ *
+ * Behavior / guarantees:
+ * - Chooses uniformly at random from the keys of `colorMap`.
+ * - Avoids returning the same color twice in a row by tracking `lastColor`.
+ *   If the map contains only a single key, the function will return that key
+ *   (the `do/while` loop will exit immediately because the value cannot
+ *   differ from `lastColor`).
+ * - Updates `lastColor` with the newly chosen color so subsequent calls
+ *   will avoid repeating it.
+ *
+ * Note: randomness is provided by `Math.random()` and is therefore not
+ * cryptographically secure — this is suitable for UI color variety but
+ * not for security-sensitive use.
+ */
 export function getRandomColor(): ColorKey {
-  const keys = Object.keys(colorMap) as ColorKey[];
-  let color: ColorKey;
+	const keys = Object.keys(colorMap) as ColorKey[];
+	let color: ColorKey;
 
-  do {
-    color = keys[Math.floor(Math.random() * keys.length)];
-  } while (color === lastColor);
+	do {
+		color = keys[Math.floor(Math.random() * keys.length)];
+	} while (color === lastColor);
 
-  lastColor = color;
-  return color;
+	lastColor = color;
+	return color;
 }
 
