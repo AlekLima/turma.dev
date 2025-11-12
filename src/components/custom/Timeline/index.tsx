@@ -1,4 +1,4 @@
-import { suseMono } from "@/app/layout";
+import { suseMono } from "@/lib/fonts";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
@@ -6,7 +6,7 @@ import { TimelineItemProps, YearButtonProps } from "./types";
 
 export default function Timeline({ years }: TimelineItemProps) {
   return (
-    <ScrollArea className="z-1 timeline-container scroll-area flex flex-col max-h-[300px]">
+    <ScrollArea className="z-1 timeline-container scroll-area flex flex-col max-h-[290px]">
       {years.map((year) => (
         <YearButton key={year} year={year} />
       ))}
@@ -27,7 +27,7 @@ function YearButton({ year }: YearButtonProps) {
         key={year}
         className={cn("pr-[8px] rounded-none border-zinc-100 border-l-[3px]", isSelected && selectedButtonStyle)}
       >
-        <span className={`text-[16px] ${suseMono.variable}`}>{year}</span>
+        <span className={`text-[18px] ${suseMono.variable}`}>{year}</span>
       </Button>
     </div>
   );
