@@ -1,27 +1,31 @@
+"use client"
+
 import { suseMono } from "@/lib/fonts";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
-import { TimelineItemProps, YearButtonProps } from "./types";
+import { LeftCircleProps, TimelineItemProps, YearButtonProps } from "./types";
+import { useState } from "react";
 
 export default function Timeline({ years }: TimelineItemProps) {
+  const [ selectedYear, setSelectedYear ] = useState<number>(years[3])
+
   return (
-    <ScrollArea className="z-1 timeline-container scroll-area flex flex-col max-h-[290px]">
+    <ScrollArea className="z-1 timeline-container scroll-area flex flex-col max-h-[290px] ">
       {years.map((year) => (
-        <YearButton key={year} year={year} />
+        <YearButton key={year} year={year} isSelected={year === selectedYear}/>
       ))}
     </ScrollArea>
   );
 }
 
-function YearButton({ year }: YearButtonProps) {
-  const isSelected = true;
-  const selectedStyle = "bg-accent-50 border-r-[3px] border-r-zinc-900 mr-[12px]";
+function YearButton({ year, isSelected = false }: YearButtonProps) {
+  const selectedStyle = "bg-accent-50 border-r-[3px] border-r-zinc-900 -translate-x-[10px]";
   const selectedButtonStyle = "bg-accent-50";
 
   return (
-    <div className={cn("flex items-center", isSelected && selectedStyle)}>
-      {isSelected && <LeftCircle />}
+    <div className={cn("flex items-center mr-[12px] translate-x-[10px]", isSelected && selectedStyle)}>
+      <LeftCircle isVisible={isSelected} />
       <Button
         variant="ghost"
         key={year}
@@ -33,9 +37,9 @@ function YearButton({ year }: YearButtonProps) {
   );
 }
 
-function LeftCircle() {
+function LeftCircle({ isVisible }: LeftCircleProps) {
   return (
-    <div className="relative -right-[12px] z-[999] flex items-center justify-center w-5 h-5">
+    <div className={cn("relative -right-[12px] z-[999] flex items-center justify-center w-5 h-5", !isVisible && "hidden")}>
       <div className="absolute w-2 h-2 rounded-full bg-primary"></div>
       <div className="absolute w-4 h-4 rounded-full border-2 border-primary"></div>
     </div>
