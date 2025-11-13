@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { LeftCircleProps, TimelineItemProps, YearButtonProps } from "./types";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function Timeline({ years }: TimelineItemProps) {
   const [blackBorderYTranslation, setBlackBorderYTranslation] = useState(0);
@@ -13,24 +13,29 @@ export default function Timeline({ years }: TimelineItemProps) {
     years && years.length > 0 ? years[0] : null
   );
 
-  function changeSelectedYear(yearSelected: number) {
+  const changeSelectedYear = useCallback((yearSelected: number) => {
     setSelectedYear(yearSelected);
+  }, []);
+
+  function calculateBlackBorderTranslation(selectedYear: number | null, years: number[]) {
+    const yearHeight = 36
+
+    if (selectedYear == null) return 0;
+    const idx = years.indexOf(selectedYear);
+    return Math.max(0, idx) * yearHeight;
   }
 
-  // Atualiza a tradução Y da barra quando selectedYear mudar
   useEffect(() => {
-    if (selectedYear == null) {
-      setBlackBorderYTranslation(0);
-      return;
-    }
-    const idx = years.indexOf(selectedYear);
-    const clampedIndex = idx >= 0 ? idx : 0;
-    setBlackBorderYTranslation(clampedIndex * 36);
+    setBlackBorderYTranslation(
+      calculateBlackBorderTranslation(selectedYear, years)
+    );
   }, [selectedYear, years]);
 
   return (
     <div className="timeline-container flex">
-      <ScrollArea className="z-1 scroll-area flex flex-col max-h-[290px] ">
+      <ScrollArea
+        className="z-1 scroll-area flex flex-col max-h-[290px]"
+      >
         {years.map((year) => (
           <YearButton
             key={year}
@@ -41,7 +46,7 @@ export default function Timeline({ years }: TimelineItemProps) {
         ))}
       </ScrollArea>
       <div
-        className="z-2 h-[36px] w-[3px] bg-zinc-900 -translate-x-[20px] text-transparent"
+        className="z-2 h-[36px] w-[3px] bg-zinc-900 -translate-x-[20px] text-transparent transition-transform duration-300 ease-out"
         style={{ transform: `translateY(${blackBorderYTranslation}px)` }}
       >
         a
@@ -54,10 +59,6 @@ function YearButton({ year, isSelected = false, onClick }: YearButtonProps) {
   const selectedStyle = "bg-accent-50";
   const selectedButtonStyle = "bg-accent-50";
 
-  function handleOnSelectedYear(year: number) {
-    onClick(year)
-  }
-
   return (
     <div
       className={cn(
@@ -68,8 +69,7 @@ function YearButton({ year, isSelected = false, onClick }: YearButtonProps) {
       <LeftCircle isVisible={isSelected} />
       <Button
         variant="ghost"
-        key={year}
-        onClick={() => handleOnSelectedYear(year)}
+        onClick={() => onClick(year)}
         aria-pressed={isSelected}
         className={cn(
           "pr-[8px] rounded-none border-zinc-100 border-l-[3px] cursor-pointer",
