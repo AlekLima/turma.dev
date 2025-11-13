@@ -5,7 +5,7 @@ export type TimelineItemProps = {
 export type YearButtonProps = {
   year: number;
   isSelected: boolean;
-  onSelect?: (year: number) => void;
+  onClick: (year: number) => void;
 }
 
 export type LeftCircleProps = {
