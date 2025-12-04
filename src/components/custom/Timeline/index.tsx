@@ -5,13 +5,16 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { LeftCircleProps, TimelineItemProps, YearButtonProps } from "./types";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function Timeline({ years }: TimelineItemProps) {
   const [blackBorderYTranslation, setBlackBorderYTranslation] = useState(0);
   const [selectedYear, setSelectedYear] = useState<number | null>(
     years && years.length > 0 ? years[0] : null
   );
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+  const itemRefs = useRef<Record<number, HTMLDivElement | null>>({});
+  const [showBar, setShowBar] = useState(true);
 
   const changeSelectedYear = useCallback((yearSelected: number) => {
     setSelectedYear(yearSelected);
@@ -25,16 +28,48 @@ export default function Timeline({ years }: TimelineItemProps) {
     return Math.max(0, idx) * yearHeight;
   }
 
+  function updateBarVisibility() {
+    if (viewportRef.current && selectedYear != null) {
+      const vp = viewportRef.current.getBoundingClientRect();
+      const item = itemRefs.current[selectedYear];
+      if (item) {
+        const it = item.getBoundingClientRect();
+        const isVisible = it.bottom > vp.top && it.top < vp.bottom;
+        setShowBar(isVisible);
+      } else {
+        setShowBar(false);
+      }
+    } else {
+      setShowBar(false);
+    }
+  }
+
+  function handleViewportScroll() {
+    const base = calculateBlackBorderTranslation(selectedYear, years);
+    const scrollTop = viewportRef.current ? viewportRef.current.scrollTop : 0;
+    setBlackBorderYTranslation(Math.max(0, base - scrollTop));
+
+    // Update visibility when scrolling
+    updateBarVisibility();
+  }
+
   useEffect(() => {
-    setBlackBorderYTranslation(
-      calculateBlackBorderTranslation(selectedYear, years)
-    );
+    const base = calculateBlackBorderTranslation(selectedYear, years);
+    const scrollTop = viewportRef.current ? viewportRef.current.scrollTop : 0;
+    // Invert scroll variation: when user scrolls down (scrollTop increases)
+    // the bar should move up => subtract scrollTop from base.
+    setBlackBorderYTranslation(Math.max(0, base - scrollTop));
+
+    // Check if the selected item is visible within the viewport
+    updateBarVisibility();
   }, [selectedYear, years]);
 
   return (
     <div className="timeline-container flex">
       <ScrollArea
         className="z-1 scroll-area flex flex-col max-h-[290px]"
+        viewportRef={viewportRef}
+        onViewportScroll={handleViewportScroll}
       >
         {years.map((year) => (
           <YearButton
@@ -42,11 +77,14 @@ export default function Timeline({ years }: TimelineItemProps) {
             year={year}
             isSelected={year === selectedYear}
             onClick={changeSelectedYear}
+            innerRef={(el) => (itemRefs.current[year] = el)}
           />
         ))}
       </ScrollArea>
       <div
-        className="z-2 h-[36px] w-[3px] bg-zinc-900 -translate-x-[20px] text-transparent transition-transform duration-300 ease-out"
+        className={`z-2 h-[36px] w-[3px] bg-zinc-900 -translate-x-[20px] text-transparent transition-transform duration-300 ease-out transition-opacity duration-200 ${
+          showBar ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
         style={{ transform: `translateY(${blackBorderYTranslation}px)` }}
       >
         a
@@ -55,14 +93,15 @@ export default function Timeline({ years }: TimelineItemProps) {
   );
 }
 
-function YearButton({ year, isSelected = false, onClick }: YearButtonProps) {
+function YearButton({ year, isSelected = false, onClick, innerRef }: YearButtonProps) {
   const selectedStyle = "bg-accent-50";
   const selectedButtonStyle = "bg-accent-50";
 
   return (
     <div
+      ref={(el) => innerRef?.(el)}
       className={cn(
-        "flex items-center mr-[12px] -translate-x-[10px]",
+        "flex items-center mr-[12px] -translate-x-[10px] transition-all duration-300",
         isSelected && selectedStyle
       )}
     >
