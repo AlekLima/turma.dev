@@ -1,31 +1,119 @@
+"use client"
+
 import { suseMono } from "@/lib/fonts";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
-import { TimelineItemProps, YearButtonProps } from "./types";
+import { LeftCircleProps, TimelineItemProps, YearButtonProps } from "./types";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function Timeline({ years }: TimelineItemProps) {
+  const [blackBorderYTranslation, setBlackBorderYTranslation] = useState(0);
+  const [selectedYear, setSelectedYear] = useState<number | null>(
+    years && years.length > 0 ? years[0] : null
+  );
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+  const itemRefs = useRef<Record<number, HTMLDivElement | null>>({});
+  const [showBar, setShowBar] = useState(true);
+
+  const changeSelectedYear = useCallback((yearSelected: number) => {
+    setSelectedYear(yearSelected);
+  }, []);
+
+  function calculateBlackBorderTranslation(selectedYear: number | null, years: number[]) {
+    const yearHeight = 36
+
+    if (selectedYear == null) return 0;
+    const idx = years.indexOf(selectedYear);
+    return Math.max(0, idx) * yearHeight;
+  }
+
+  function updateBarVisibility() {
+    if (viewportRef.current && selectedYear != null) {
+      const vp = viewportRef.current.getBoundingClientRect();
+      const item = itemRefs.current[selectedYear];
+      if (item) {
+        const it = item.getBoundingClientRect();
+        const isVisible = it.bottom > vp.top && it.top < vp.bottom;
+        setShowBar(isVisible);
+      } else {
+        setShowBar(false);
+      }
+    } else {
+      setShowBar(false);
+    }
+  }
+
+  function handleViewportScroll() {
+    const base = calculateBlackBorderTranslation(selectedYear, years);
+    const scrollTop = viewportRef.current ? viewportRef.current.scrollTop : 0;
+    setBlackBorderYTranslation(Math.max(0, base - scrollTop));
+
+    // Update visibility when scrolling
+    updateBarVisibility();
+  }
+
+  useEffect(() => {
+    const base = calculateBlackBorderTranslation(selectedYear, years);
+    const scrollTop = viewportRef.current ? viewportRef.current.scrollTop : 0;
+    // Invert scroll variation: when user scrolls down (scrollTop increases)
+    // the bar should move up => subtract scrollTop from base.
+    setBlackBorderYTranslation(Math.max(0, base - scrollTop));
+
+    // Check if the selected item is visible within the viewport
+    updateBarVisibility();
+  }, [selectedYear, years]);
+
   return (
-    <ScrollArea className="z-1 timeline-container scroll-area flex flex-col max-h-[290px]">
-      {years.map((year) => (
-        <YearButton key={year} year={year} />
-      ))}
-    </ScrollArea>
+    <div className="timeline-container flex">
+      <ScrollArea
+        className="z-1 scroll-area flex flex-col max-h-[290px]"
+        viewportRef={viewportRef}
+        onViewportScroll={handleViewportScroll}
+      >
+        {years.map((year) => (
+          <YearButton
+            key={year}
+            year={year}
+            isSelected={year === selectedYear}
+            onClick={changeSelectedYear}
+            innerRef={(el) => (itemRefs.current[year] = el)}
+          />
+        ))}
+      </ScrollArea>
+      <div
+        className={`z-2 h-[36px] w-[3px] bg-zinc-900 -translate-x-[20px] text-transparent transition-transform duration-300 ease-out transition-opacity duration-200 ${
+          showBar ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        style={{ transform: `translateY(${blackBorderYTranslation}px)` }}
+      >
+        a
+      </div>
+    </div>
   );
 }
 
-function YearButton({ year }: YearButtonProps) {
-  const isSelected = true;
-  const selectedStyle = "bg-accent-50 border-r-[3px] border-r-zinc-900 mr-[12px]";
+function YearButton({ year, isSelected = false, onClick, innerRef }: YearButtonProps) {
+  const selectedStyle = "bg-accent-50";
   const selectedButtonStyle = "bg-accent-50";
 
   return (
-    <div className={cn("flex items-center", isSelected && selectedStyle)}>
-      {isSelected && <LeftCircle />}
+    <div
+      ref={(el) => innerRef?.(el)}
+      className={cn(
+        "flex items-center mr-[12px] -translate-x-[10px] transition-all duration-300",
+        isSelected && selectedStyle
+      )}
+    >
+      <LeftCircle isVisible={isSelected} />
       <Button
         variant="ghost"
-        key={year}
-        className={cn("pr-[8px] rounded-none border-zinc-100 border-l-[3px]", isSelected && selectedButtonStyle)}
+        onClick={() => onClick(year)}
+        aria-pressed={isSelected}
+        className={cn(
+          "pr-[8px] rounded-none border-zinc-100 border-l-[3px] cursor-pointer",
+          isSelected && selectedButtonStyle
+        )}
       >
         <span className={`text-[18px] ${suseMono.variable}`}>{year}</span>
       </Button>
@@ -33,11 +121,16 @@ function YearButton({ year }: YearButtonProps) {
   );
 }
 
-function LeftCircle() {
+function LeftCircle({ isVisible }: LeftCircleProps) {
   return (
-    <div className="relative -right-[12px] z-[999] flex items-center justify-center w-5 h-5">
+    <div
+      className={cn(
+        "relative -right-[12px] z-[999] flex items-center justify-center w-5 h-5 transform-gpu transition-all duration-200 ease-out",
+        isVisible ? "scale-100 opacity-100" : "scale-0 opacity-0"
+      )}
+    >
       <div className="absolute w-2 h-2 rounded-full bg-primary"></div>
       <div className="absolute w-4 h-4 rounded-full border-2 border-primary"></div>
     </div>
-  )
+  );
 }
