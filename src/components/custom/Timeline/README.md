@@ -91,17 +91,17 @@ changeSelectedYear()
 
 ## Technical Decisions & Trade-offs
 
-### ✅ Why Inverted Scroll (base - scrollTop)?
+### Why Inverted Scroll (base - scrollTop)?
 - **Maintains alignment**: Bar visually stays with the year item as viewport scrolls
 - **Intuitive UX**: User sees the bar "follow" their selection
 - **Alternative rejected**: Fixed position would break out of ScrollArea context
 
-### ✅ Why Using Refs Instead of State Array?
+### Why Using Refs Instead of State Array?
 - **Performance**: Avoids recreating arrays on every render
 - **Direct DOM Access**: Enables getBoundingClientRect() for accurate positioning
 - **Memory Efficient**: Refs are mutable without triggering re-renders
 
-### ✅ Why Separate updateBarVisibility()?
+### Why Separate updateBarVisibility()?
 - **DRY Principle**: Logic used in both useEffect and scroll handler
 - **Testability**: Isolated function easier to unit test
 - **Maintainability**: Single source of truth for visibility logic
@@ -120,40 +120,20 @@ changeSelectedYear()
 - Bar moves inverse to scroll direction
 - Creates optical illusion of "sticking" to the selected year
 
-## Dependencies
-
-- **React Hooks**: `useState`, `useEffect`, `useRef`, `useCallback`
-- **Radix UI**: ScrollArea component
-- **Tailwind CSS**: Utility-based styling
-- **Custom Fonts**: `suseMono` from `@/lib/fonts`
-- **Utilities**: `cn()` for class merging
-
-## Files Modified
+## Files
 
 1. **`src/components/custom/Timeline/index.tsx`** (Main Component)
    - Scroll coordination
    - State management
    - Visibility detection
 
-2. **`src/components/custom/Timeline/types.ts`** (Type Definitions)
-   - TimelineItemProps
-   - YearButtonProps
-   - LeftCircleProps
-
-3. **`src/components/ui/scroll-area.tsx`** (Enhanced ScrollArea)
+2. **`src/components/ui/scroll-area.tsx`** (Enhanced ScrollArea)
    - Added `viewportRef` prop for ref attachment
    - Added `onViewportScroll` prop for scroll event handling
 
-4. **`src/app/background/page.view.tsx`** (Integration Point)
+3. **`src/app/background/page.view.tsx`** (Integration Point)
    - Extracts unique years from contentData
    - Passes to Timeline component
-
-## Performance Considerations
-
-- **Re-renders**: Only triggered on `selectedYear` or `years` changes
-- **Scroll Handler**: Lightweight calculations in `handleViewportScroll()`
-- **Ref Updates**: Don't trigger component re-renders
-- **Memoization**: Prevents unnecessary callback recreations
 
 ## Future Enhancement Opportunities
 
