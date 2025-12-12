@@ -28,7 +28,7 @@ export default function Timeline({ years }: TimelineItemProps) {
     return Math.max(0, idx) * yearHeight;
   }
 
-  function updateBarVisibility() {
+  const updateBarVisibility = useCallback(() => {
     if (viewportRef.current && selectedYear != null) {
       const vp = viewportRef.current.getBoundingClientRect();
       const item = itemRefs.current[selectedYear];
@@ -42,7 +42,7 @@ export default function Timeline({ years }: TimelineItemProps) {
     } else {
       setShowBar(false);
     }
-  }
+  }, [selectedYear]);
 
   function handleViewportScroll() {
     const base = calculateBlackBorderTranslation(selectedYear, years);
@@ -62,7 +62,7 @@ export default function Timeline({ years }: TimelineItemProps) {
 
     // Check if the selected item is visible within the viewport
     updateBarVisibility();
-  }, [selectedYear, years]);
+  }, [selectedYear, years, updateBarVisibility]);
 
   return (
     <div className="timeline-container flex">
@@ -82,7 +82,7 @@ export default function Timeline({ years }: TimelineItemProps) {
         ))}
       </ScrollArea>
       <div
-        className={`z-2 h-[36px] w-[3px] bg-zinc-900 -translate-x-[20px] text-transparent transition-transform duration-300 ease-out transition-opacity duration-200 ${
+        className={`z-2 h-[36px] w-[3px] bg-zinc-900 -translate-x-[20px] text-transparent ease-out transition-[transform,opacity] duration-300 ${
           showBar ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         style={{ transform: `translateY(${blackBorderYTranslation}px)` }}
