@@ -1,3 +1,5 @@
+_Don't forget to keep title's pattern: **[TURMA-<ISSUE_ID>] - Same title as issue**_
+
 closes #[issue_number]
 
 ## Description
