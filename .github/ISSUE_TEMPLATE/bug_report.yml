@@ -6,7 +6,7 @@ labels: [bug]
 body:
   - type: textarea
     attributes:
-      label: Describe the bug
+      label: 🐛 Describe the bug
       description: A clear and concise description of what the bug is.
       placeholder: What happened?
     validations:
@@ -14,7 +14,7 @@ body:
 
   - type: textarea
     attributes:
-      label: To Reproduce
+      label: 🧪 To Reproduce
       description: Steps to reproduce the behavior.
       placeholder: |
         1. Go to '...'
@@ -26,7 +26,7 @@ body:
 
   - type: textarea
     attributes:
-      label: Expected behavior
+      label: 🎯 Expected behavior
       description: A clear and concise description of what you expected to happen.
       placeholder: What should have happened?
     validations:
@@ -34,7 +34,7 @@ body:
 
   - type: textarea
     attributes:
-      label: Evidences
+      label: 📷 Evidences
       description: If applicable, add screenshots to help explain your problem.
       placeholder: Paste images or links here.
     validations:
@@ -42,7 +42,7 @@ body:
 
   - type: dropdown
     attributes:
-      label: Desktop
+      label: 🖥️ Desktop
       description: Please complete the following information
       options:
         - OS: Windows
@@ -54,42 +54,42 @@ body:
 
   - type: input
     attributes:
-      label: Desktop Browser
+      label: 🖥️ Desktop Browser
       placeholder: e.g. Chrome, Safari, Firefox
     validations:
       required: false
 
   - type: input
     attributes:
-      label: Desktop Browser Version
+      label: 🖥️ Desktop Browser Version
       placeholder: e.g. 22
     validations:
       required: false
 
   - type: input
     attributes:
-      label: Smartphone Device
+      label: 📱 Smartphone Device
       placeholder: e.g. iPhone 6
     validations:
       required: false
 
   - type: input
     attributes:
-      label: Smartphone OS
+      label: 📱 Smartphone OS
       placeholder: e.g. iOS 8.1 / Android 13
     validations:
       required: false
 
   - type: input
     attributes:
-      label: Smartphone Browser
+      label: 📱 Smartphone Browser
       placeholder: e.g. Safari, Chrome
     validations:
       required: false
 
   - type: input
     attributes:
-      label: Smartphone Browser Version
+      label: 📱 Smartphone Browser Version
       placeholder: e.g. 22
     validations:
       required: false
