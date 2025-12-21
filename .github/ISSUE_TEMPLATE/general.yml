@@ -7,20 +7,22 @@ body:
   - type: textarea
     attributes:
       label: 🚀 Description
-      placeholder: You can describe with a clear and concise description of:
-        - what the problem is
-        - what you want to happen
-        - any alternative solutions or features you've considered
+      placeholder: |
+        You can describe with a clear and concise description of:
+        * what the problem is
+        * what you want to happen
+        * any alternative solutions or features you've considered
     validations:
       required: true
 
   - type: textarea
     attributes:
       label: References
-      placeholder: You can attach some screenshots or links here.
-        - Desktop
-        - Mobile
-        - Links
-        - [some link]()
+      placeholder: |
+        You can attach some screenshots or links here.
+        * Desktop
+        * Mobile
+        * Links
+        * [some link]()
     validations:
       required: false
