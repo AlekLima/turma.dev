@@ -11,6 +11,7 @@ export type Project = {
 }
 
 export type Background = {
+  id: string;
   year: number;
   title: string;
   description: string;
@@ -22,6 +23,14 @@ export type Background = {
 }
 
 type UserBackground = Background[];
+
+function generateUUID(): string {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
 
 export const listOfYears = [1997, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
 
@@ -38,17 +47,20 @@ export const userData: UserInfo = {
 
 export const contentData: UserBackground = [
   {
+    id: generateUUID(),
     year: 1997,
     title: "Era uma vez 🚩",
     description: "Brasileira, Soteropolitana, 28 anos",
     location: "Salvador/BA",
   },
   {
+    id: generateUUID(),
     year: 2013,
     title: "Ensino médio",
     description: "primeiro contato com programação \n - HTML e CSS",
   },
   {
+    id: generateUUID(),
     year: 2016,
     title: "Ingressou na UFC ✈️",
     description: "Bacharelado em Sistemas e Mídias Digitais",
@@ -56,12 +68,14 @@ export const contentData: UserBackground = [
     month: 3,
   },
   {
+    id: generateUUID(),
     year: 2016,
     title: "Trainee CoDi Jr. ❤️💚💙",
     description: "entrou na empresa júnior do SMD",
     month: 6,
   },
   {
+    id: generateUUID(),
     year: 2018,
     title: "Entrou para a diretoria 🥸",
     description: "eleita como Diretora de Projetos da CoDi Jr.",
@@ -69,6 +83,7 @@ export const contentData: UserBackground = [
     month: 4,
   },
   {
+    id: generateUUID(),
     year: 2018,
     title: "Estágio frontend - JGV",
     description: "o primeiro bug em produção a gente nunca esquece ;)",
@@ -76,6 +91,7 @@ export const contentData: UserBackground = [
     month: 8,
   },
   {
+    id: generateUUID(),
     year: 2019,
     title: "Jr. Developer - JGV 🤓",
     description: "o estágio rendeu muitos frutos como um app mobile com + 100K downloads!",
@@ -89,6 +105,7 @@ export const contentData: UserBackground = [
     ]
   },
   {
+    id: generateUUID(),
     year: 2020,
     title: "UX Developer - Ootz 🛍️",
     description: "atuei em um e-commerce com Next.js",
@@ -96,6 +113,7 @@ export const contentData: UserBackground = [
     durationInMonths: 6,
   },
   {
+    id: generateUUID(),
     year: 2021,
     title: "Dev Jr Flutter / Designer UI - bHave 📲",
     description: "redesign e implementação em um app Flutter de terapia para autismo.",
@@ -114,6 +132,7 @@ export const contentData: UserBackground = [
     ]
   },
   {
+    id: generateUUID(),
     year: 2021,
     title: "Software Engineer - Levva 💛🖤💛",
     description: "atuei com angular e react, em projetos nacionais e internacionais, para fábricas de cervejaria, e para deliverys, com milhões de usuários ativos. Em clientes como AmbevTech, BEES e Zé Delivery",
@@ -128,6 +147,7 @@ export const contentData: UserBackground = [
     ]
   },
   {
+    id: generateUUID(),
     year: 2022,
     title: "O diploma veio aí! 🎓",
     description: "conclusão do bacharelado em Sístemas e Mídias Digitais!",
@@ -145,6 +165,7 @@ export const contentData: UserBackground = [
     ]
   },
   {
+    id: generateUUID(),
     year: 2022,
     title: "Ingressou no Ignite 🚀",
     description: "início do programa de especialização em React da @Rocktseat",
@@ -157,6 +178,7 @@ export const contentData: UserBackground = [
     ]
   },
   {
+    id: generateUUID(),
     year: 2023,
     title: "Primeira produção de conteúdo 🎥",
     description: "gravei uma série de 9h para introdução em frontend",
@@ -173,6 +195,7 @@ export const contentData: UserBackground = [
     ]
   },
   {
+    id: generateUUID(),
     year: 2023,
     title: "Ingressou no curso.dev 📝",
     description: "estudando full cycle com o Filipe Deschamps",
@@ -185,6 +208,7 @@ export const contentData: UserBackground = [
     ]
   },
   {
+    id: generateUUID(),
     year: 2024,
     title: "Especialista em React e Next.js🏅",
     description: "concluiu a especialização em React e Next.js da @Rocktseat",
@@ -201,6 +225,7 @@ export const contentData: UserBackground = [
     ]
   },
   {
+    id: generateUUID(),
     year: 2025,
     title: "Iniciou os estudos em Web3 e Open Source 🌐",
     description: "comecei a estudar blockchain, DAOs, DApps, Smart Contracts, e abrir meus olhos para o mundo open source.",
