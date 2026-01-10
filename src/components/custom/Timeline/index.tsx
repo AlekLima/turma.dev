@@ -6,19 +6,18 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { LeftCircleProps, TimelineItemProps, YearButtonProps } from "./types";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useBackground } from "../../../contexts/BackgroundContext";
 
 export default function Timeline({ years }: TimelineItemProps) {
   const [blackBorderYTranslation, setBlackBorderYTranslation] = useState(0);
-  const [selectedYear, setSelectedYear] = useState<number | null>(
-    years && years.length > 0 ? years[0] : null
-  );
+  const { selectedYear, setSelectedYear } = useBackground();
   const viewportRef = useRef<HTMLDivElement | null>(null);
   const itemRefs = useRef<Record<number, HTMLDivElement | null>>({});
   const [showBar, setShowBar] = useState(true);
 
   const changeSelectedYear = useCallback((yearSelected: number) => {
     setSelectedYear(yearSelected);
-  }, []);
+  }, [setSelectedYear]);
 
   function calculateBlackBorderTranslation(selectedYear: number | null, years: number[]) {
     const yearHeight = 36
@@ -70,6 +69,7 @@ export default function Timeline({ years }: TimelineItemProps) {
         className="z-1 scroll-area flex flex-col max-h-[290px]"
         viewportRef={viewportRef}
         onViewportScroll={handleViewportScroll}
+        hideScrollbar
       >
         {years.map((year) => (
           <YearButton
@@ -81,13 +81,12 @@ export default function Timeline({ years }: TimelineItemProps) {
           />
         ))}
       </ScrollArea>
-      <div
-        className={`z-2 h-[36px] w-[3px] bg-zinc-900 -translate-x-[20px] text-transparent ease-out transition-[transform,opacity] duration-300 ${
+      <div id="black-border"
+        className={`z-2 h-[36px] w-[3px] bg-zinc-900 -translate-x-[16px] text-transparent ease-out transition-[transform,opacity] duration-300 ${
           showBar ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         style={{ transform: `translateY(${blackBorderYTranslation}px)` }}
       >
-        a
       </div>
     </div>
   );
@@ -95,13 +94,12 @@ export default function Timeline({ years }: TimelineItemProps) {
 
 function YearButton({ year, isSelected = false, onClick, innerRef }: YearButtonProps) {
   const selectedStyle = "bg-accent-50";
-  const selectedButtonStyle = "bg-accent-50";
 
   return (
     <div
       ref={(el) => innerRef?.(el)}
       className={cn(
-        "flex items-center mr-[12px] -translate-x-[10px] transition-all duration-300",
+        "flex items-center mr-[8px] -translate-x-[10px] transition-all duration-300",
         isSelected && selectedStyle
       )}
     >
@@ -112,7 +110,7 @@ function YearButton({ year, isSelected = false, onClick, innerRef }: YearButtonP
         aria-pressed={isSelected}
         className={cn(
           "pr-[8px] rounded-none border-zinc-100 border-l-[3px] cursor-pointer",
-          isSelected && selectedButtonStyle
+          isSelected && selectedStyle
         )}
       >
         <span className={`text-[18px] ${suseMono.variable}`}>{year}</span>
