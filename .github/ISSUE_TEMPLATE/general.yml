@@ -17,7 +17,21 @@ body:
 
   - type: textarea
     attributes:
-      label: 🥸 References
+      label: 🧑‍💻 User stories
+      placeholder: |
+        Describe user stories in the format:
+        * As a [type of user], I want [goal] so that [reason/benefit]
+        * When [type of user] does [some system input/action], the [app part] must [expected behavior]... [other requirements/expectations]
+
+        Example:
+        * As a developer, I want to see code examples so that I can understand how to implement the feature
+        * As an end user, I want a responsive interface so that I can access the app on any device
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: 🥸 References / Attachments
       placeholder: |
         You can attach some screenshots or links here.
         * Desktop
