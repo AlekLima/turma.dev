@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils"
 type ScrollAreaProps = React.ComponentProps<typeof ScrollAreaPrimitive.Root> & {
   viewportRef?: React.Ref<HTMLDivElement>;
   onViewportScroll?: (e: React.UIEvent<HTMLDivElement>) => void;
+  hideScrollbar?: boolean;
 };
 
 function ScrollArea({
@@ -15,6 +16,7 @@ function ScrollArea({
   children,
   viewportRef,
   onViewportScroll,
+  hideScrollbar = false,
   ...props
 }: ScrollAreaProps) {
   return (
@@ -27,12 +29,15 @@ function ScrollArea({
         data-slot="scroll-area-viewport"
         ref={viewportRef}
         onScroll={onViewportScroll}
-        className="focus-visible:ring-ring/50 size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:outline-1"
+        className={cn(
+          "focus-visible:ring-ring/50 size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:outline-1 overflow-auto",
+          hideScrollbar && "hide-scrollbar"
+        )}
       >
         {children}
       </ScrollAreaPrimitive.Viewport>
-      <ScrollBar />
-      <ScrollAreaPrimitive.Corner />
+      {!hideScrollbar && <ScrollBar />}
+      {!hideScrollbar && <ScrollAreaPrimitive.Corner />}
     </ScrollAreaPrimitive.Root>
   )
 }

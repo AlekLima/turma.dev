@@ -14,14 +14,16 @@ export default function ContentItem({
   background,
   isNotUniqueOrLast
 } : ContentItemProps) {
-  const { month, title, description, location, durationInMonths, projects } = background;
+  const { id, month, title, description, location, durationInMonths, projects } = background;
 
   return (
-    <div className={
-      cn(
-        `flex flex-col items-start justify-between ${courstardSans.className} text-gray-400 txt-xs md:pl-8`,
-        isNotUniqueOrLast && "mb-8"
-      )}
+    <div
+      id={id}
+      className={
+        cn(
+          `flex flex-col items-start justify-between ${courstardSans.className} text-gray-400 txt-xs`,
+          isNotUniqueOrLast && "mb-8"
+        )}
     >
       {month && <MonthCircle color={getRandomColor()} month={month} />}
 
@@ -46,7 +48,7 @@ function MonthCircle({ color, month }: CircleProps) {
         <div className={`absolute w-2 h-2 rounded-full ${bg}`}></div>
         <div className={`absolute w-4 h-4 rounded-full border-2 ${border}`}></div>
       </div>
-      <span className="text-sm text-gray-500 pb-2">{numberToMonthPTBR(month)}</span>
+      <span className="text-sm text-gray-500 pb-2">{` ${numberToMonthPTBR(month)}` }</span>
     </div>
   )
 }
@@ -56,11 +58,11 @@ function PeriodInfo({
   description,
   location,
   durationInMonths
-}: Omit<Background, 'year' | 'month' | 'projects'>) {
+}: Omit<Background, 'year' | 'month' | 'projects' | 'id'>) {
   return (
-    <div>
+    <div className="ml-2 pl-[26px] border-zinc-900 border-l-[2px]">
       <h2 className={`${changaSans.className} text-zinc-950 text-2xl`}>{title}</h2>
-      <p className="text-sm pb-8">{description}</p>
+      <p className="text-sm max-w-[300px]">{description}</p>
 
       { location && <LocationInfo location={location} /> }
       { durationInMonths && <DurationInfo durationInMonths={durationInMonths} /> }
@@ -71,7 +73,7 @@ function PeriodInfo({
 function DurationInfo({ durationInMonths }: { durationInMonths?: number }) {
   return (
     <div>
-      <div className="flex items-center gap-2 text-sm">
+      <div className="flex items-center pt-6 gap-2 text-sm">
         <HourglassIcon size={24} weight="duotone" />
         <span>{durationInMonths} months</span>
       </div>
@@ -81,7 +83,7 @@ function DurationInfo({ durationInMonths }: { durationInMonths?: number }) {
 
 function LocationInfo({ location }: { location?: string }) {
   return (
-    <div className="flex items-center gap-2 pb-2 text-sm">
+    <div className="flex items-center gap-2 pt-6 pb-2 text-sm">
       <MapPinAreaIcon size={24} weight="duotone" />
       <span>{location}</span>
     </div>
@@ -90,7 +92,7 @@ function LocationInfo({ location }: { location?: string }) {
 
 function ProjectsList({ projects }: { projects?: { url: string; name: string }[]  }) {
   return (
-    <div>
+    <div className="pl-9 mt-2">
       <h3 className={`${changaSans.className} pb-2 text-lg text-gray-500 font-semibold`}>
         Projects
       </h3>
