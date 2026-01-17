@@ -93,14 +93,13 @@ export default function Timeline({ years }: TimelineItemProps) {
 }
 
 function YearButton({ year, isSelected = false, onClick, innerRef }: YearButtonProps) {
-  const selectedStyle = "bg-accent-50";
+  const selectedStyle = "bg-accent";
 
   return (
     <div
       ref={(el) => innerRef?.(el)}
       className={cn(
-        "flex items-center mr-[8px] -translate-x-[10px] transition-all duration-300",
-        isSelected && selectedStyle
+        "flex items-center mr-[8px] -translate-x-[10px] transition-all duration-300"
       )}
     >
       <LeftCircle isVisible={isSelected} />
@@ -109,7 +108,7 @@ function YearButton({ year, isSelected = false, onClick, innerRef }: YearButtonP
         onClick={() => onClick(year)}
         aria-pressed={isSelected}
         className={cn(
-          "pr-[8px] rounded-none border-zinc-100 border-l-[3px] cursor-pointer",
+          "pr-[8px] rounded-none border-zinc-100 border-l-[3px] cursor-pointer hover:bg-accent",
           isSelected && selectedStyle
         )}
       >
