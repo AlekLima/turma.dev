@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { LeftCircleProps, TimelineItemProps, YearButtonProps } from "./types";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useBackground } from "../../../contexts/BackgroundContext";
+import { ChevronDownIcon, ChevronsDownIcon, ChevronsUpIcon, ChevronUpIcon } from "lucide-react";
 
 export default function Timeline({ years }: TimelineItemProps) {
   const [blackBorderYTranslation, setBlackBorderYTranslation] = useState(0);
@@ -63,30 +64,99 @@ export default function Timeline({ years }: TimelineItemProps) {
     updateBarVisibility();
   }, [selectedYear, years, updateBarVisibility]);
 
+  const scrollToYear = useCallback((year: number) => {
+    const element = itemRefs.current[year];
+    if (element && viewportRef.current) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, []);
+
+  const handleUpAll = useCallback(() => {
+    if (years.length > 0) {
+      scrollToYear(years[0]);
+    }
+  }, [years, scrollToYear]);
+
+  const handleDownAll = useCallback(() => {
+    if (years.length > 0) {
+      scrollToYear(years[years.length - 1]);
+    }
+  }, [years, scrollToYear]);
+
+  const handleUpOne = useCallback(() => {
+    if (!viewportRef.current) return;
+    const yearHeight = 36;
+    const currentScroll = viewportRef.current.scrollTop;
+    const targetScroll = Math.floor(currentScroll / yearHeight) * yearHeight;
+    const scrollAmount = currentScroll - targetScroll;
+    
+    if (scrollAmount > 1) {
+      // Align to grid first
+      viewportRef.current.scrollTo({ top: targetScroll, behavior: 'smooth' });
+    } else {
+      // Already aligned, go to previous
+      viewportRef.current.scrollTo({ top: targetScroll - yearHeight, behavior: 'smooth' });
+    }
+  }, []);
+
+  const handleDownOne = useCallback(() => {
+    if (!viewportRef.current) return;
+    const yearHeight = 36;
+    const currentScroll = viewportRef.current.scrollTop;
+    const targetScroll = Math.ceil(currentScroll / yearHeight) * yearHeight;
+    const scrollAmount = targetScroll - currentScroll;
+    
+    if (scrollAmount > 1) {
+      // Align to grid first
+      viewportRef.current.scrollTo({ top: targetScroll, behavior: 'smooth' });
+    } else {
+      // Already aligned, go to next
+      viewportRef.current.scrollTo({ top: targetScroll + yearHeight, behavior: 'smooth' });
+    }
+  }, []);
+
   return (
-    <div className="timeline-container flex">
-      <ScrollArea
-        className="z-1 scroll-area flex flex-col max-h-[290px]"
-        viewportRef={viewportRef}
-        onViewportScroll={handleViewportScroll}
-        hideScrollbar
-      >
-        {years.map((year) => (
-          <YearButton
-            key={year}
-            year={year}
-            isSelected={year === selectedYear}
-            onClick={changeSelectedYear}
-            innerRef={(el) => (itemRefs.current[year] = el)}
-          />
-        ))}
-      </ScrollArea>
-      <div id="black-border"
-        className={`z-2 h-[36px] w-[3px] bg-zinc-900 -translate-x-[16px] text-transparent ease-out transition-[transform,opacity] duration-300 ${
-          showBar ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
-        style={{ transform: `translateY(${blackBorderYTranslation}px)` }}
-      >
+    <div className="timeline-container flex flex-col">
+      <div className="timeline flex ml-[5px]">
+        <ScrollArea
+          className="z-1 scroll-area flex flex-col max-h-[290px]"
+          viewportRef={viewportRef}
+          onViewportScroll={handleViewportScroll}
+          hideScrollbar
+        >
+          {years.map((year) => (
+            <YearButton
+              key={year}
+              year={year}
+              isSelected={year === selectedYear}
+              onClick={changeSelectedYear}
+              innerRef={(el) => (itemRefs.current[year] = el)}
+            />
+          ))}
+        </ScrollArea>
+        <div id="black-border"
+          className={`z-2 h-[36px] w-[3px] bg-zinc-900 -translate-x-[16px] text-transparent ease-out transition-[transform,opacity] duration-300 ${
+            showBar ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
+          style={{ transform: `translateY(${blackBorderYTranslation}px)` }}
+        >
+        </div>
+      </div>
+      <div className="top-navigation flex mt-4">
+        <Button id="up-all" variant="outline" size="icon" onClick={handleUpAll}>
+          <ChevronsUpIcon />
+        </Button>
+        <Button  id="up-one" variant="outline" size="icon" className=" ml-2" onClick={handleUpOne}>
+          <ChevronUpIcon />
+        </Button>
+      </div>
+      <div className="bottom-navigation flex mt-2">
+        <Button id="down-all" variant="outline" size="icon" onClick={handleDownAll}>
+          <ChevronsDownIcon />
+        </Button>
+        <Button id="down-one" variant="outline" size="icon" className="ml-2" onClick={handleDownOne}>
+          <ChevronDownIcon />
+        </Button>
       </div>
     </div>
   );
