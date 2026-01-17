@@ -7,8 +7,10 @@ export type YearButtonProps = {
   isSelected: boolean;
   onClick: (year: number) => void;
   innerRef?: (el: HTMLDivElement | null) => void;
+  showError?: boolean;
 }
 
 export type LeftCircleProps = {
   isVisible: boolean;
+  showError?: boolean;
 }
