@@ -126,7 +126,7 @@ function LeftCircle({ isVisible }: LeftCircleProps) {
         isVisible ? "scale-100 opacity-100" : "scale-0 opacity-0"
       )}
     >
-      <div className="absolute w-2 h-2 rounded-full bg-primary"></div>
+      <div className="absolute w-2 h-2 rounded-full bg-neutral-400"></div>
       <div className="absolute w-4 h-4 rounded-full border-2 border-primary"></div>
     </div>
   );
