@@ -12,7 +12,7 @@ export type ProjectButtonProps = {
 
 export type ColorKey = keyof typeof colorMap;
 
-export type CircleProps = {
+export type MonthBulletProps = {
   color: ColorKey;
   month: number;
 }

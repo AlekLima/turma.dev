@@ -7,7 +7,7 @@ import { changaSans, courstardSans } from "@/lib/fonts";
 import { HourglassIcon, MapPinAreaIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { getRandomColor, numberToMonthPTBR } from "./utils";
-import { CircleProps, colorMap, ContentItemProps, ProjectButtonProps } from "./types";
+import { MonthBulletProps, colorMap, ContentItemProps, ProjectButtonProps } from "./types";
 import { cn } from "@/lib/utils";
 
 export default function ContentItem({
@@ -17,7 +17,7 @@ export default function ContentItem({
   const { id, month, title, description, location, durationInMonths, projects } = background;
 
   return (
-    <div
+    <li
       id={id}
       className={
         cn(
@@ -25,7 +25,7 @@ export default function ContentItem({
           isNotUniqueOrLast && "mb-8"
         )}
     >
-      {month && <MonthCircle color={getRandomColor()} month={month} />}
+      {month && <MonthBullet color={getRandomColor()} month={month} />}
 
       <PeriodInfo
         title={title}
@@ -35,11 +35,11 @@ export default function ContentItem({
       />
 
       {projects && <ProjectsList projects={projects} />}
-    </div>
+    </li>
   );
 }
 
-function MonthCircle({ color, month }: CircleProps) {
+function MonthBullet({ color, month }: MonthBulletProps) {
   const { bg, border } = colorMap[color];
 
   return (
