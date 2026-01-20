@@ -4,7 +4,7 @@ import { suseMono } from "@/lib/fonts";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
-import { LeftCircleProps, TimelineItemProps, YearButtonProps } from "./types";
+import { TimelineItemProps, TimelineLeftBulletProps, YearButtonProps } from "./types";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useBackground } from "../../../contexts/BackgroundContext";
 import { ChevronDownIcon, ChevronsDownIcon, ChevronsUpIcon, ChevronUpIcon } from "lucide-react";
@@ -234,7 +234,7 @@ function YearButton({ year, isSelected = false, onClick, innerRef, showError = f
         "flex items-center mr-[8px] -translate-x-[10px] transition-all duration-300"
       )}
     >
-      <LeftCircle isVisible={isSelected} showError={showError} />
+      <TimelineLeftBullet isVisible={isSelected} showError={showError} />
       <Button
         variant="ghost"
         onClick={() => onClick(year)}
@@ -251,7 +251,7 @@ function YearButton({ year, isSelected = false, onClick, innerRef, showError = f
   );
 }
 
-function LeftCircle({ isVisible, showError = false }: LeftCircleProps) {
+function TimelineLeftBullet({ isVisible, showError = false }: TimelineLeftBulletProps) {
   return (
     <div
       className={cn(

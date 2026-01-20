@@ -10,7 +10,7 @@ export type YearButtonProps = {
   showError?: boolean;
 }
 
-export type LeftCircleProps = {
+export type TimelineLeftBulletProps = {
   isVisible: boolean;
   showError?: boolean;
 }
