@@ -29,12 +29,13 @@ export default function ContentArea() {
           {items.map((period, index) => {
             const isNotUniqueOrLast =
               items.length !== 1 && index < items.length - 1;
+
             const currentIndex = items.findIndex(
               (item) => item.id === selectedContent,
             );
+
             const isPrevious = index < currentIndex;
             const isNext = index > currentIndex;
-            const isCurrent = index === currentIndex;
 
             return (
               <ContentItem
@@ -43,14 +44,15 @@ export default function ContentArea() {
                 isNotUniqueOrLast={isNotUniqueOrLast}
                 isPrevious={isPrevious}
                 isNext={isNext}
-                isCurrent={isCurrent}
               />
             );
           })}
         </ul>
+
         <ul className="bullet-list ml-4">
           {items.map((period) => {
             const isActive = period.id === selectedContent;
+
             return (
               <Bullet
                 key={period.id}

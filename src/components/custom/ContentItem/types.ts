@@ -5,7 +5,6 @@ export type ContentItemProps = {
   isNotUniqueOrLast: boolean;
   isPrevious: boolean;
   isNext: boolean;
-  isCurrent: boolean;
 };
 
 export type ProjectButtonProps = {

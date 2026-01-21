@@ -24,7 +24,6 @@ export default function ContentItem({
   isNotUniqueOrLast,
   isPrevious,
   isNext,
-  isCurrent,
 }: ContentItemProps) {
   const {
     id,
