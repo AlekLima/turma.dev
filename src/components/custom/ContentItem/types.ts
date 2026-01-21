@@ -3,7 +3,9 @@ import { Background, Project } from "@/background-data";
 export type ContentItemProps = {
   background: Background;
   isNotUniqueOrLast: boolean;
+  color: string;
   isNext: boolean;
+  isPrevious: boolean;
   isLastItem?: boolean;
   containerHeight?: number;
 };

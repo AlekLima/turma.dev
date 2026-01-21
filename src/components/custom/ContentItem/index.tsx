@@ -10,12 +10,13 @@ import {
 import { changaSans, courstardSans } from "@/lib/fonts";
 import { HourglassIcon, MapPinAreaIcon } from "@phosphor-icons/react";
 import Link from "next/link";
-import { getRandomColor, numberToMonthPTBR } from "./utils";
+import { numberToMonthPTBR } from "./utils";
 import {
   MonthBulletProps,
   colorMap,
   ContentItemProps,
   ProjectButtonProps,
+  ColorKey,
 } from "./types";
 import { cn } from "@/lib/utils";
 import { useEffect, useRef } from "react";
@@ -23,7 +24,9 @@ import { useEffect, useRef } from "react";
 export default function ContentItem({
   background,
   isNotUniqueOrLast,
+  color,
   isNext,
+  isPrevious,
   isLastItem = false,
   containerHeight = 290,
 }: ContentItemProps) {
@@ -39,39 +42,38 @@ export default function ContentItem({
 
   const itemRef = useRef<HTMLLIElement>(null);
 
-  // Calcula padding para o último item
+  // Calculate padding for the last item
   useEffect(() => {
     if (!isLastItem || !itemRef.current) return;
 
     const updatePadding = () => {
       if (!itemRef.current) return;
-      
+
       const itemHeight = itemRef.current.offsetHeight;
-      const headerHeight = 80; // altura do h1 sticky
+      const headerHeight = 80; // sticky h1 height
       const availableHeight = containerHeight - headerHeight;
-      
-      // Se o item é menor que o espaço disponível, adiciona padding
+
+      // If the item is smaller than the available space, add padding
       if (itemHeight < availableHeight) {
         const paddingNeeded = availableHeight - itemHeight;
         itemRef.current.style.paddingBottom = `${paddingNeeded}px`;
       }
     };
 
-    // Executa após renderização
+    // Execute after rendering
     updatePadding();
-    
-    // Observa mudanças de tamanho
+
+    // Observe size changes
     const resizeObserver = new ResizeObserver(updatePadding);
     resizeObserver.observe(itemRef.current);
-    
+
     return () => resizeObserver.disconnect();
   }, [isLastItem, containerHeight]);
 
   // Apply 30% opacity to next content
-  const opacityClass = isNext ? "opacity-30" : "opacity-100";
+  const opacityClass = isNext || isPrevious ? "opacity-30" : "opacity-100";
   const transitionClass = "transition-opacity duration-300";
 
-  const color = getRandomColor();
 
   return (
     <li
@@ -84,7 +86,7 @@ export default function ContentItem({
     >
       {month && (
         <MonthBullet
-          color={color}
+          color={color as ColorKey}
           month={month}
           isGrayScale={isNext}
         />
