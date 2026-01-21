@@ -1,9 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useCallback, useEffect } from "react";
 import { useBackground } from "../../../contexts/BackgroundContext";
 import ContentItem from "../ContentItem";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function ContentArea() {
   const {
@@ -14,11 +13,82 @@ export default function ContentArea() {
   } = useBackground();
 
   const items = selectedYearContentList;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isScrolling = useRef(false);
+  const lastScrollTime = useRef(0);
+
+  // Scroll para o item selecionado
+  const scrollToItem = useCallback((itemId: string) => {
+    if (!containerRef.current) return;
+
+    const element = document.getElementById(itemId);
+    if (!element) return;
+
+    isScrolling.current = true;
+    
+    const container = containerRef.current;
+    const elementTop = element.offsetTop;
+    
+    container.scrollTo({
+      top: elementTop - 80,
+      behavior: 'smooth'
+    });
+
+    setTimeout(() => {
+      isScrolling.current = false;
+    }, 600);
+  }, []);
+
+  // Efeito para scroll quando selectedContent mudar (ex: clique no bullet)
+  useEffect(() => {
+    if (!selectedContent) return;
+    scrollToItem(selectedContent);
+  }, [selectedContent, scrollToItem]);
+
+  // Handler de wheel para simular comportamento de carrossel
+  const handleWheel = useCallback((e: React.WheelEvent<HTMLDivElement>) => {
+    // Previne scroll nativo durante animação
+    if (isScrolling.current) {
+      e.preventDefault();
+      return;
+    }
+
+    const now = Date.now();
+    // Debounce de 300ms entre scrolls
+    if (now - lastScrollTime.current < 300) {
+      e.preventDefault();
+      return;
+    }
+
+    const currentIndex = items.findIndex(item => item.id === selectedContent);
+    if (currentIndex === -1) return;
+
+    // Detecta direção do scroll
+    const isScrollingDown = e.deltaY > 0;
+    
+    let nextIndex = currentIndex;
+    
+    if (isScrollingDown && currentIndex < items.length - 1) {
+      // Scroll para baixo
+      nextIndex = currentIndex + 1;
+    } else if (!isScrollingDown && currentIndex > 0) {
+      // Scroll para cima
+      nextIndex = currentIndex - 1;
+    }
+
+    if (nextIndex !== currentIndex) {
+      e.preventDefault();
+      lastScrollTime.current = now;
+      setSelectedContent(items[nextIndex].id);
+    }
+  }, [items, selectedContent, setSelectedContent]);
 
   return (
-    <ScrollArea
-      className="content-area scroll-area flex flex-col md:pl-6 max-h-[290px] h-[290px]"
-      hideScrollbar
+    <div
+      ref={containerRef}
+      onWheel={handleWheel}
+      className="content-area flex flex-col md:pl-6 max-h-[290px] h-[290px] overflow-y-auto scroll-smooth hide-scrollbar"
+      style={{ scrollBehavior: 'smooth' }}
     >
       <h1 className="text-3xl pb-4 mb-6 sticky top-0 z-10 bg-white shadow-xs">
         {selectedYear}
@@ -34,16 +104,17 @@ export default function ContentArea() {
               (item) => item.id === selectedContent,
             );
 
-            const isPrevious = index < currentIndex;
             const isNext = index > currentIndex;
+            const isLastItem = index === items.length - 1;
 
             return (
               <ContentItem
                 key={period.id}
                 background={period}
                 isNotUniqueOrLast={isNotUniqueOrLast}
-                isPrevious={isPrevious}
                 isNext={isNext}
+                isLastItem={isLastItem}
+                containerHeight={290}
               />
             );
           })}
@@ -63,7 +134,7 @@ export default function ContentArea() {
           })}
         </ul>
       </div>
-    </ScrollArea>
+    </div>
   );
 }
 

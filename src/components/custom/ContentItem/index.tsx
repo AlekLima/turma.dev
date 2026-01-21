@@ -18,12 +18,14 @@ import {
   ProjectButtonProps,
 } from "./types";
 import { cn } from "@/lib/utils";
+import { useEffect, useRef } from "react";
 
 export default function ContentItem({
   background,
   isNotUniqueOrLast,
-  isPrevious,
   isNext,
+  isLastItem = false,
+  containerHeight = 290,
 }: ContentItemProps) {
   const {
     id,
@@ -35,18 +37,46 @@ export default function ContentItem({
     projects,
   } = background;
 
-  // Hide previous content completely
-  if (isPrevious) {
-    return null;
-  }
+  const itemRef = useRef<HTMLLIElement>(null);
+
+  // Calcula padding para o último item
+  useEffect(() => {
+    if (!isLastItem || !itemRef.current) return;
+
+    const updatePadding = () => {
+      if (!itemRef.current) return;
+      
+      const itemHeight = itemRef.current.offsetHeight;
+      const headerHeight = 80; // altura do h1 sticky
+      const availableHeight = containerHeight - headerHeight;
+      
+      // Se o item é menor que o espaço disponível, adiciona padding
+      if (itemHeight < availableHeight) {
+        const paddingNeeded = availableHeight - itemHeight;
+        itemRef.current.style.paddingBottom = `${paddingNeeded}px`;
+      }
+    };
+
+    // Executa após renderização
+    updatePadding();
+    
+    // Observa mudanças de tamanho
+    const resizeObserver = new ResizeObserver(updatePadding);
+    resizeObserver.observe(itemRef.current);
+    
+    return () => resizeObserver.disconnect();
+  }, [isLastItem, containerHeight]);
 
   // Apply 30% opacity to next content
   const opacityClass = isNext ? "opacity-30" : "opacity-100";
   const transitionClass = "transition-opacity duration-300";
 
+  const color = getRandomColor();
+
   return (
     <li
       id={id}
+      ref={itemRef}
       className={cn(
         `flex flex-col items-start justify-between ${courstardSans.className} text-gray-400 txt-xs ${opacityClass} ${transitionClass}`,
         isNotUniqueOrLast && "mb-8",
@@ -54,7 +84,7 @@ export default function ContentItem({
     >
       {month && (
         <MonthBullet
-          color={getRandomColor()}
+          color={color}
           month={month}
           isGrayScale={isNext}
         />
