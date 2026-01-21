@@ -1,0 +1,161 @@
+import { RefObject } from "react";
+
+const SCROLL_ANIMATION_DURATION = 600;
+const DEFAULT_SCROLL_THRESHOLD = 10;
+const DEFAULT_SCROLL_TIME_RESET = 300;
+
+type MutableRef<T> = RefObject<{ current: T }>;
+
+/**
+ * Scrolls to the selected item
+ * Scrolls smoothly to a specific item within a scrollable container.
+ *
+ * @param {RefObject<HTMLUListElement | null>} contentListRef - Reference to the scrollable container element
+ * @param {string} itemId - The ID of the element to scroll to
+ * @param {RefObject<{ current: boolean }>} isScrollingRef - Reference to track if a scroll animation is in progress
+ *
+ * @example
+ * ```tsx
+ * const listRef = useRef<HTMLUListElement>(null);
+ * const isScrolling = useRef({ current: false });
+ *
+ * scrollToItem(listRef, 'item-123', isScrolling);
+ * ```
+ */
+export function scrollToItem(
+  contentListRef: RefObject<HTMLUListElement | null>,
+  itemId: string,
+  isScrollingRef: MutableRef<boolean>
+): void {
+  const listElement = contentListRef.current;
+  if (!listElement) return;
+
+  const targetElement = document.getElementById(itemId);
+  if (!targetElement) return;
+
+  // Prevent multiple scrolls at the same time (locks during animation)
+  if (isScrollingRef.current) {
+    isScrollingRef.current.current = true;
+  }
+
+  // Calculate the offset to scroll the element to the top of the container
+  const containerRect = listElement.getBoundingClientRect();
+  const targetRect = targetElement.getBoundingClientRect();
+  const scrollOffset = targetRect.top - containerRect.top;
+
+  // Perform the scroll
+  listElement.scrollTo({
+    top: listElement.scrollTop + scrollOffset,
+    behavior: 'smooth'
+  });
+
+  setTimeout(() => {
+    // Allow scrolling again after animation (unlock)
+    if (isScrollingRef.current) {
+      isScrollingRef.current.current = false;
+    }
+  }, SCROLL_ANIMATION_DURATION);
+}
+
+/**
+ * Resets the scroll position of a container to the top.
+ *
+ * @param {RefObject<HTMLUListElement | null>} contentListRef - Reference to the scrollable container element
+ *
+ * @example
+ * ```tsx
+ * const listRef = useRef<HTMLUListElement>(null);
+ *
+ * resetScroll(listRef);
+ * ```
+ */
+export function resetScroll(contentListRef: RefObject<HTMLUListElement | null>): void {
+  contentListRef.current?.scrollTo({
+    top: 0,
+    behavior: 'auto'
+  });
+}
+
+
+/**
+ * Creates a wheel event handler that simulates carousel-like navigation behavior.
+ * Accumulates scroll deltas and triggers navigation callbacks when thresholds are met.
+ *
+ * @param {RefObject<{ current: boolean }>} isScrollingRef - Reference to track if navigation is in progress
+ * @param {RefObject<{ current: number }>} lastScrollTimeRef - Reference to store the timestamp of the last scroll event
+ * @param {RefObject<{ current: number }>} accumulatedDeltaRef - Reference to accumulate scroll deltas
+ * @param {() => void} goToNext - Callback function to navigate to the next item
+ * @param {() => void} goToPrevious - Callback function to navigate to the previous item
+ * @param {number} [threshold=10] - Minimum accumulated delta required to trigger navigation
+ * @param {number} [timeReset=300] - Maximum time (ms) between scrolls to keep accumulating deltas
+ * @returns {(e: React.WheelEvent<HTMLUListElement>) => void} Wheel event handler function
+ *
+ * @example
+ * ```tsx
+ * const isScrolling = useRef({ current: false });
+ * const lastScrollTime = useRef({ current: 0 });
+ * const accumulatedDelta = useRef({ current: 0 });
+ *
+ * const handleWheel = createWheelHandler(
+ *   isScrolling,
+ *   lastScrollTime,
+ *   accumulatedDelta,
+ *   () => console.log('Next'),
+ *   () => console.log('Previous'),
+ *   10,
+ *   300
+ * );
+ *
+ * <ul onWheel={handleWheel}>...</ul>
+ * ```
+ */
+export function createWheelHandler(
+  isScrollingRef: MutableRef<boolean>,
+  lastScrollTimeRef: MutableRef<number>,
+  accumulatedDeltaRef: MutableRef<number>,
+  goToNext: () => void,
+  goToPrevious: () => void,
+  threshold = DEFAULT_SCROLL_THRESHOLD,
+  timeReset = DEFAULT_SCROLL_TIME_RESET
+): (e: React.WheelEvent<HTMLUListElement>) => void {
+  return (e: React.WheelEvent<HTMLUListElement>) => {
+    e.preventDefault();
+
+    // Prevent scroll during animation (locks during animation)
+    if (isScrollingRef.current?.current) return;
+
+    const now = Date.now();
+    const lastScrollTime = lastScrollTimeRef.current?.current || 0;
+
+    // Reset accumulator if too much time has passed since the last scroll
+    if (now - lastScrollTime > timeReset && accumulatedDeltaRef.current) {
+      accumulatedDeltaRef.current.current = 0;
+    }
+
+    // Accumulate the deltaY to detect scroll direction
+    if (accumulatedDeltaRef.current) {
+      accumulatedDeltaRef.current.current += e.deltaY;
+    }
+
+    // Update the last scroll time
+    if (lastScrollTimeRef.current) {
+      lastScrollTimeRef.current.current = now;
+    }
+
+    const accumulatedDelta = accumulatedDeltaRef.current?.current || 0;
+
+    // Navigate if the accumulated delta exceeds the threshold
+    if (Math.abs(accumulatedDelta) >= threshold) {
+      if (accumulatedDelta > 0) {
+        goToNext();
+      } else {
+        goToPrevious();
+      }
+
+      // Reset the accumulated delta after navigating
+      if (accumulatedDeltaRef.current) {
+        accumulatedDeltaRef.current.current = 0;
+      }
+    }
+  };
+}
