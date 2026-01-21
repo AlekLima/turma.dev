@@ -8,7 +8,8 @@ Cada dev tem uma história - conte a sua para a turma
 - run `nvm alias default lts/{version_name}` if you want to set that npm version as default
 
 # Patterns to follow
-At this section we have some patterns defined. 
+
+At this section we have some patterns defined.
 
 ### Code Formatting
 
@@ -21,12 +22,14 @@ At this section we have some patterns defined.
 1. First create a issue
 2. Set the issue title rightly, use the pattern `[TURMA-XXXXX] + issue_title`
 3. Use the generated issue number (#X...) to fill the `XXXXX` part
-   
+
    3.1 As example: if the issue is `#86` the code will be `TURMA-00086`
-   
+
    3.2 As another: if is `#3` will be `TURMA-00003`
-5. Follow the pattern `feat/TURMA-XXXXX` to create branchs based on the issue that was opened
+
+4. Follow the pattern `feat/TURMA-XXXXX` to create branchs based on the issue that was opened
 
 ### Issue + Branch Example
+
 This [issue #1](https://github.com/jemluz/turma.dev/issues/1) is linked with [feat/TURMA-00001](https://github.com/jemluz/turma.dev/tree/feat%2FTURMA-00001) branch
 <img width="1254" height="807" alt="image" src="https://github.com/user-attachments/assets/eb301820-9742-416d-8656-16cfc5f580fd" />

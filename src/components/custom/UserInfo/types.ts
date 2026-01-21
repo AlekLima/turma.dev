@@ -2,20 +2,20 @@ export enum GoToButtonType {
   GITHUB,
   LINKEDIN,
   WEBSITE,
-  INVALID
+  INVALID,
 }
 
 export type UserInfoProps = {
-  name: string
-  lastName: string
-  profilePhotoUrl: string
-  urls: string[]
-}
+  name: string;
+  lastName: string;
+  profilePhotoUrl: string;
+  urls: string[];
+};
 
 export type GoToSectionProps = {
-  goToUrls: string[]
-}
+  goToUrls: string[];
+};
 
 export type GoToButtonProps = {
-  url: string
-}
+  url: string;
+};

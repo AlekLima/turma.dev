@@ -15,14 +15,18 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const headersList = await headers();
-  const theme = headersList.get('x-theme') || 'light';
+  const theme = headersList.get("x-theme") || "light";
 
   return (
     <html lang="en" className={theme} style={{ colorScheme: theme }}>
       <body
         className={`bg-background text-foreground ${suseMono.className} antialiased`}
       >
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem={false}
+        >
           {/* <ThemeToggle/> */}
           {children}
         </ThemeProvider>

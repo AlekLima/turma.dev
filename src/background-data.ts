@@ -3,12 +3,12 @@ type UserInfo = {
   lastName: string;
   profilePhotoUrl: string;
   urls: string[];
-}
+};
 
 export type Project = {
   url: string;
   name: string;
-}
+};
 
 export type Background = {
   id: string;
@@ -20,19 +20,21 @@ export type Background = {
   isCurrent?: boolean;
   month?: number;
   projects?: Project[];
-}
+};
 
 type UserBackground = Background[];
 
 function generateUUID(): string {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    const r = Math.random() * 16 | 0;
-    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    const r = (Math.random() * 16) | 0;
+    const v = c === "x" ? r : (r & 0x3) | 0x8;
     return v.toString(16);
   });
 }
 
-export const listOfYears = [1997, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
+export const listOfYears = [
+  1997, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025,
+];
 
 export const userData: UserInfo = {
   name: "Jemimma",
@@ -41,9 +43,9 @@ export const userData: UserInfo = {
   urls: [
     "https://github.com/jemluz",
     "https://www.linkedin.com/in/jemluz",
-    "https://www.turma.dev"
-  ]
-}
+    "https://www.turma.dev",
+  ],
+};
 
 export const contentData: UserBackground = [
   {
@@ -97,14 +99,15 @@ export const contentData: UserBackground = [
     year: 2019,
     month: 8,
     title: "Jr. Developer - JGV 🤓",
-    description: "o estágio rendeu muitos frutos como um app mobile com + 100K downloads!",
+    description:
+      "o estágio rendeu muitos frutos como um app mobile com + 100K downloads!",
     location: "Salvador/BA",
     projects: [
       {
         url: "https://www.turma.dev",
-        name: "Turma.dev"
-      }
-    ]
+        name: "Turma.dev",
+      },
+    ],
   },
   {
     id: generateUUID(),
@@ -120,34 +123,36 @@ export const contentData: UserBackground = [
     year: 2021,
     month: 4,
     title: "Dev Jr Flutter / Designer UI - bHave 📲",
-    description: "redesign e implementação em um app Flutter de terapia para autismo.",
+    description:
+      "redesign e implementação em um app Flutter de terapia para autismo.",
     location: "Recife/PE",
     durationInMonths: 11,
     projects: [
       {
         url: "",
-        name: "bHave App"
+        name: "bHave App",
       },
       {
         url: "https://www.turma.dev",
-        name: "Minha geladeira"
-      }
-    ]
+        name: "Minha geladeira",
+      },
+    ],
   },
   {
     id: generateUUID(),
     year: 2021,
     month: 8,
     title: "Software Engineer - Levva 💛🖤💛",
-    description: "atuei com angular e react, em projetos nacionais e internacionais, para fábricas de cervejaria, e para deliverys, com milhões de usuários ativos. Em clientes como AmbevTech, BEES e Zé Delivery",
+    description:
+      "atuei com angular e react, em projetos nacionais e internacionais, para fábricas de cervejaria, e para deliverys, com milhões de usuários ativos. Em clientes como AmbevTech, BEES e Zé Delivery",
     location: "Campinas/SP",
     isCurrent: true,
     projects: [
       {
         url: "",
-        name: "Frontend Artesanal"
-      }
-    ]
+        name: "Frontend Artesanal",
+      },
+    ],
   },
   {
     id: generateUUID(),
@@ -159,13 +164,13 @@ export const contentData: UserBackground = [
     projects: [
       {
         url: "",
-        name: "Diplomata"
+        name: "Diplomata",
       },
       {
         url: "",
-        name: "TCC UFC - Diplomata"
-      }
-    ]
+        name: "TCC UFC - Diplomata",
+      },
+    ],
   },
   {
     id: generateUUID(),
@@ -176,9 +181,9 @@ export const contentData: UserBackground = [
     projects: [
       {
         url: "",
-        name: "Ignite - Especialização em React"
+        name: "Ignite - Especialização em React",
       },
-    ]
+    ],
   },
   {
     id: generateUUID(),
@@ -189,13 +194,13 @@ export const contentData: UserBackground = [
     projects: [
       {
         url: "",
-        name: "Frontend Artesanal"
+        name: "Frontend Artesanal",
       },
       {
         url: "",
-        name: "Material complementar"
-      }
-    ]
+        name: "Material complementar",
+      },
+    ],
   },
   {
     id: generateUUID(),
@@ -206,9 +211,9 @@ export const contentData: UserBackground = [
     projects: [
       {
         url: "",
-        name: "Clone tabnews"
+        name: "Clone tabnews",
       },
-    ]
+    ],
   },
   {
     id: generateUUID(),
@@ -219,19 +224,20 @@ export const contentData: UserBackground = [
     projects: [
       {
         url: "",
-        name: "Ignite - Especialização em React"
+        name: "Ignite - Especialização em React",
       },
       {
         url: "",
-        name: "Ignite - Certificado"
+        name: "Ignite - Certificado",
       },
-    ]
+    ],
   },
   {
     id: generateUUID(),
     year: 2025,
     month: 1,
     title: "Iniciou os estudos em Web3 e Open Source 🌐",
-    description: "comecei a estudar blockchain, DAOs, DApps, Smart Contracts, e abrir meus olhos para o mundo open source.",
+    description:
+      "comecei a estudar blockchain, DAOs, DApps, Smart Contracts, e abrir meus olhos para o mundo open source.",
   },
 ];
