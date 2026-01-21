@@ -53,7 +53,7 @@ export const contentData: UserBackground = [
     year: 1997,
     month: 9,
     title: "Era uma vez 🚩",
-    description: "Brasileira, Soteropolitana, 28 anos",
+    description: "Brasileira, Soteropolitana",
     location: "Salvador/BA",
   },
   {
@@ -67,7 +67,7 @@ export const contentData: UserBackground = [
     id: generateUUID(),
     year: 2016,
     month: 3,
-    title: "Ingressou na UFC ✈️",
+    title: "Ingressou na Universidade Federal do Ceará ✈️",
     description: "Bacharelado em Sistemas e Mídias Digitais",
     location: "Fortaleza/CE",
   },
