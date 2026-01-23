@@ -11,7 +11,7 @@ import React, {
   useEffect,
 } from "react";
 import { contentData, Background } from "@/background-data";
-import { getRandomColor } from "@/components/custom/ContentItem/utils";
+import { getRandomColor } from "@/components/custom/ContentArea/colors.utils";
 
 type BackgroundContextType = {
   // State - primitives

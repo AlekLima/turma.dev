@@ -1,9 +1,9 @@
-import UserInfo from "../../components/custom/UserInfo";
+import UserInfo from "../../components/custom/UserInfo/UserInfo";
 import Timeline from "../../components/custom/Timeline";
 import "./styles.css";
 import { contentData, userData } from "@/background-data";
 import { BackgroundProvider } from "../../contexts/BackgroundContext";
-import ContentArea from "@/components/custom/ContentArea";
+import ContentArea from "@/components/custom/ContentArea/ContentArea";
 
 export default function BackgroundPage() {
   const backgroundYears = Array.from(
