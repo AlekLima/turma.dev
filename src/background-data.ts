@@ -20,6 +20,7 @@ export type Background = {
   isCurrent?: boolean;
   month?: number;
   projects?: Project[];
+  isInactive?: boolean;
 };
 
 type UserBackground = Background[];
