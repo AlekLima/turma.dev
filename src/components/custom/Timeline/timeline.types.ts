@@ -8,9 +8,9 @@ export type YearButtonProps = {
   onClick: (year: number) => void;
   innerRef?: (el: HTMLDivElement | null) => void;
   showError?: boolean;
-}
+};
 
-export type LeftCircleProps = {
+export type YearBtnLeftBulletProps = {
   isVisible: boolean;
   showError?: boolean;
-}
+};

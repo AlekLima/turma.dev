@@ -3,19 +3,29 @@ import { Background, Project } from "@/background-data";
 export type ContentItemProps = {
   background: Background;
   isNotUniqueOrLast: boolean;
-}
+  color: string;
+  isNext: boolean;
+  isPrevious: boolean;
+  isLastItem?: boolean;
+  containerHeight?: number;
+};
+
+export type ProjectListProps = {
+  projects?: { url: string; name: string }[];
+};
 
 export type ProjectButtonProps = {
   project: Project;
   isNotUniqueOrLast: boolean;
-}
+};
 
-export type ColorKey = keyof typeof colorMap;
-
-export type CircleProps = {
+export type MonthBulletProps = {
   color: ColorKey;
   month: number;
-}
+  isGrayScale?: boolean;
+};
+
+export type ColorKey = keyof typeof colorMap;
 
 export const colorMap = {
   red: { bg: "bg-red-200", border: "border-red-400" },

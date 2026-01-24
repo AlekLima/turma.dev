@@ -1,19 +1,23 @@
-import UserInfo from "../../components/custom/UserInfo";
+import UserInfo from "../../components/custom/UserInfo/UserInfo";
 import Timeline from "../../components/custom/Timeline";
-import "./styles.css"
+import "./styles.css";
 import { contentData, userData } from "@/background-data";
 import { BackgroundProvider } from "../../contexts/BackgroundContext";
-import ContentView from "@/components/custom/ContentView";
+import ContentArea from "@/components/custom/ContentArea/ContentArea";
 
 export default function BackgroundPage() {
-  const backgroundYears = Array.from(new Set(contentData.map(item => item.year)));
+  const backgroundYears = Array.from(
+    new Set(contentData.map((item) => item.year)),
+  );
 
   return (
     <main className="user-page-grid grid my-auto min-h-screen">
-      <UserInfo {...userData}/>
-      <BackgroundProvider initialYear={backgroundYears.length > 0 ? backgroundYears[0] : null}>
+      <UserInfo {...userData} />
+      <BackgroundProvider
+        initialYear={backgroundYears.length > 0 ? backgroundYears[0] : null}
+      >
         <Timeline years={backgroundYears} />
-        <ContentView />
+        <ContentArea />
       </BackgroundProvider>
     </main>
   );
