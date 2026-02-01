@@ -7,7 +7,7 @@ import AvatarAndName from "./AvatarAndName";
 
 export default function UserInfoMobile(userData: UserInfoProps) {
   return (
-    <div id="user-info-mobile" className="user-container flex flex-col items-center justify-end">
+    <div id="user-info-mobile" className="user-area flex flex-col items-center justify-end">
       <div id="top-padding" className="h-[20px]"></div> 
       <TopContainer {...userData} />
       <GrowingLine />
@@ -22,7 +22,7 @@ function GrowingLine() {
         `w-full flex flex-col items-center justify-center`
       )}
     >
-      <div className="w-full h-[2px] mb-4 mt-6 border-b-[2px] border-b-zinc-200"></div>
+      <div className="w-full h-[2px] mt-4 border-b-[2px] border-b-zinc-200"></div>
     </div>
   );
 }
