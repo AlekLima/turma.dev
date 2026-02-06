@@ -98,7 +98,7 @@ export const contentData: UserBackground = [
         name: "Design de software e DDD",
       },
       {
-        url: "https://github.com/AlekLimaTeles/Gympass-Solid",
+        url: "https://github.com/AlekLima/Gympass-Solid",
         name: "Gympass Clone usando os Principios Solid",
       },
       {
