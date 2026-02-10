@@ -40,20 +40,20 @@ export function numberToMonthPTBR(monthNumber: number): string | null {
   if (!Number.isInteger(monthNumber) || monthNumber < 1 || monthNumber > 12)
     return null;
 
-  const monthsPTBR = [
-    "Janeiro",
-    "Fevereiro",
-    "Março",
-    "Abril",
-    "Maio",
-    "Junho",
-    "Julho",
-    "Agosto",
-    "Setembro",
-    "Outubro",
-    "Novembro",
-    "Dezembro",
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    " November",
+    "December",
   ];
 
-  return monthsPTBR[monthNumber - 1];
+  return months[monthNumber - 1];
 }

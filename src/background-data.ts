@@ -30,151 +30,77 @@ export const listOfYears = [
 ];
 
 export const userData: UserInfo = {
-  name: "Jemimma",
-  lastName: "Luz",
-  profilePhotoUrl: "https://github.com/jemluz.png",
+  name: "Alek",
+  lastName: "Lima",
+  profilePhotoUrl: "https://github.com/AlekLima.png",
   urls: [
-    "https://github.com/jemluz",
-    "https://www.linkedin.com/in/jemluz",
-    "https://www.turma.dev",
+    "https://github.com/AlekLima",
+    "https://www.linkedin.com/in/alekteles/",
+    // "https://www.turma.dev",
   ],
 };
 
 export const contentData: UserBackground = [
   {
     id: "bg-1997-09",
-    year: 1997,
-    month: 9,
-    title: "Era uma vez 🚩",
-    description: "Brasileira, Soteropolitana",
-    location: "Salvador/BA",
+    year: 2000,
+    month: 7,
+    title: "Birth🚩",
+    description: "Brazilian, Fortaleza resident",
+    location: "Fortaleza/CE",
   },
   {
     id: "bg-2013-02",
-    year: 2013,
-    month: 2,
-    title: "Ensino médio",
-    description: "primeiro contato com programação \n - HTML e CSS",
+    year: 2022,
+    month: 9,
+    title: "First Encounter With Coding",
+    description: "First Projects: Disney Clone, Fridge,  \n -  HTML e CSS",
+    projects: [
+      {
+        url: "https://fireblogs-bdcc3.web.app",
+        name: "Fire Blogs",
+      },
+      
+      {
+        url: "https://disney-clne.vercel.app",
+        name: "Disney clone",
+      },
+
+      {
+        url: "https://fridge-html-xi.vercel.app",
+        name: "Projeto Fridge",
+      },
+      
+    ],
+
   },
   {
     id: "bg-2016-03",
-    year: 2016,
-    month: 3,
-    title: "Ingressou na Universidade Federal do Ceará ✈️",
-    description: "Bacharelado em Sistemas e Mídias Digitais",
+    year: 2023,
+    month: 2,
+    title: "Ingressed in University Estácio de Sá",
+    description: "Bachelor´s degree in Computer Science",
     location: "Fortaleza/CE",
   },
-  {
-    id: "bg-2016-06",
-    year: 2016,
-    month: 6,
-    title: "Trainee CoDi Jr. ❤️💚💙",
-    description: "entrou na empresa júnior do SMD",
-  },
-  {
-    id: "bg-2018-04",
-    year: 2018,
-    month: 4,
-    title: "Entrou para a diretoria 🥸",
-    description: "eleita como Diretora de Projetos da CoDi Jr.",
-    durationInMonths: 8,
-  },
-  {
-    id: "bg-2018-08",
-    year: 2018,
-    month: 8,
-    title: "Estágio frontend - JGV",
-    description: "o primeiro bug em produção a gente nunca esquece ;)",
-    durationInMonths: 12,
-  },
-  {
-    id: "bg-2019-08",
-    year: 2019,
-    month: 8,
-    title: "Jr. Developer - JGV 🤓",
-    description:
-      "o estágio rendeu muitos frutos como um app mobile com + 100K downloads!",
-    location: "Salvador/BA",
-    projects: [
-      {
-        url: "https://www.turma.dev",
-        name: "Turma.dev",
-      },
-    ],
-  },
-  {
-    id: "bg-2020-10",
-    year: 2020,
-    month: 10,
-    title: "UX Developer - Ootz 🛍️",
-    description: "atuei em um e-commerce com Next.js",
-    location: "Curitiba/PR",
-    durationInMonths: 6,
-  },
-  {
-    id: "bg-2021-04",
-    year: 2021,
-    month: 4,
-    title: "Dev Jr Flutter / Designer UI - bHave 📲",
-    description:
-      "redesign e implementação em um app Flutter de terapia para autismo.",
-    location: "Recife/PE",
-    durationInMonths: 11,
-    projects: [
-      {
-        url: "",
-        name: "bHave App",
-      },
-      {
-        url: "https://www.turma.dev",
-        name: "Minha geladeira",
-      },
-    ],
-  },
-  {
-    id: "bg-2021-08",
-    year: 2021,
-    month: 8,
-    title: "Software Engineer - Levva 💛🖤💛",
-    description:
-      "atuei com angular e react, em projetos nacionais e internacionais, para fábricas de cervejaria, e para deliverys, com milhões de usuários ativos. Em clientes como AmbevTech, BEES e Zé Delivery",
-    location: "Campinas/SP",
-    isCurrent: true,
-    projects: [
-      {
-        url: "",
-        name: "Frontend Artesanal",
-      },
-    ],
-  },
-  {
-    id: "bg-2022-12a",
-    year: 2022,
-    month: 12,
-    title: "O diploma veio aí! 🎓",
-    description: "conclusão do bacharelado em Sístemas e Mídias Digitais!",
-    location: "Fortaleza/CE",
-    projects: [
-      {
-        url: "",
-        name: "Diplomata",
-      },
-      {
-        url: "",
-        name: "TCC UFC - Diplomata",
-      },
-    ],
-  },
+  
   {
     id: "bg-2022-12b",
-    year: 2022,
-    month: 12,
-    title: "Ingressou no Ignite 🚀",
-    description: "início do programa de especialização em React da @Rocktseat",
+    year: 2024,
+    month: 2,
+    title: "Ingressed in Ignite Specialization Course 🚀",
+    description: "Start of specialization program in Node/Typescript by @Rocktseat",
     projects: [
       {
-        url: "",
-        name: "Ignite - Especialização em React",
+        url: "https://github.com/AlekLima/Design-de-software-e-DDD",
+        name: "Software Design and DDD",
+      },
+      {
+        url: "https://github.com/AlekLima/Gympass-Solid",
+        name: "Gympass Clone using Principles Solid",
+      },
+      {
+        url: "https://github.com/AlekLima/FindFriendAPI",
+        name: "FindFriendAPI, final coding challenge",
       },
     ],
   },
@@ -182,29 +108,41 @@ export const contentData: UserBackground = [
     id: "bg-2023-03",
     year: 2023,
     month: 3,
-    title: "Primeira produção de conteúdo 🎥",
-    description: "gravei uma série de 9h para introdução em frontend",
+    title: "First College Certificates",
+    description: "First of Many Achievements",
     projects: [
       {
-        url: "",
-        name: "Frontend Artesanal",
+        url: "https://bucket-app-microcertificados.s3.amazonaws.com/ESTACIO/610/9188401/a163747fb9ab0df6c755a3557220d9a-724c-43b8-bfdd-4e7bec9dcf6a",
+        name: "Design of Efficient, Stable, and Scalable Algorithms",
       },
       {
-        url: "",
-        name: "Material complementar",
+        url: "https://certificado.estacio.br/20c422467163e63f5e79611",
+        name: "Management, Organization, and Information Retrieval",
       },
+      {
+        url: "https://certificado.estacio.br/0971e7699bf437a3ac71fb1",
+        name: "Information Systems Programming",
+      },
+      {
+        url: "https://certificado.estacio.br/21da208fa5adcd6886da76f",
+        name: "Internet Programming",
+      },
+      {
+       url: "https://certificado.estacio.br/d721cfcd472504f126d7deb",
+        name: "Community Engagement and Transformative Practice",
+      }
     ],
   },
   {
     id: "bg-2023-06",
     year: 2023,
     month: 6,
-    title: "Ingressou no curso.dev 📝",
-    description: "estudando full cycle com o Filipe Deschamps",
+    title: "First Freelance",
+    description: "Website for selling air conditioning solutions and accessories",
     projects: [
       {
-        url: "",
-        name: "Clone tabnews",
+        url: "https://github.com/AlekTeles/mwv",
+        name: "mwrefrigerações",
       },
     ],
   },
@@ -212,25 +150,44 @@ export const contentData: UserBackground = [
     id: "bg-2024-12",
     year: 2024,
     month: 12,
-    title: "Especialista em React e Next.js🏅",
-    description: "concluiu a especialização em React e Next.js da @Rocktseat",
+    title: "Specialized Certificate in React and Next.js🏅",
+    description: "The end of a long road in Node and Typescript in @Rocktseat",
     projects: [
       {
-        url: "",
-        name: "Ignite - Especialização em React",
+        url: "https://app.rocketseat.com.br/certificates/cce107e9-abdf-49df-8e9d-2379d039efe7",
+        name: "Node Fundamentals",
       },
       {
-        url: "",
-        name: "Ignite - Certificado",
+        url: "https://app.rocketseat.com.br/certificates/8eaecca1-f2b9-4161-9660-17edb9b14b1e",
+        name: "DDD in Node",
+      },
+      {
+        url: "https://app.rocketseat.com.br/certificates/ab930663-c6eb-4057-8c56-4c42f738afc1",
+        name: "NestJS",
+      },
+      {
+        url: "https://app.rocketseat.com.br/certificates/7c9f4311-ad15-4c5f-8028-d22b65b1705d",
+        name: "Ignite - Certificate in Node",
       },
     ],
   },
+  
   {
     id: "bg-2025-01",
     year: 2025,
     month: 1,
-    title: "Iniciou os estudos em Web3 e Open Source 🌐",
+    title: "Started studies in LLM and Open Source 🌐",
     description:
-      "comecei a estudar blockchain, DAOs, DApps, Smart Contracts, e abrir meus olhos para o mundo open source.",
+      "Started to study RAG, CI pipelines for LLM outputs,Test generation & mutation testing",
+  },
+
+   {
+    id: "bg-2021-04",
+    year: 2025,
+    month: 11,
+    title: "Dev LLM expert at Revelo 📲",
+    description:
+      "Evaluation and correction of code generated by an Artificial Agent",
+    
   },
 ];
