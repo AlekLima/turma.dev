@@ -116,7 +116,7 @@ export const contentData: UserBackground = [
         name: "Design of Efficient, Stable, and Scalable Algorithms",
       },
       {
-        url: "https://drive.google.com/file/d/1xiOtPuh0a_4h6AWNGCV4h0PjTyE8niS4/view?usp=sharing",
+        url: "https://drive.google.com/file/d/1tTS0ml_zNw5KhIH-F8rfVH-FLQ8uYMyY/view?usp=sharing",
         name: "Management, Organization, and Information Retrieval",
       },
       {
