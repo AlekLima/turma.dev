@@ -119,19 +119,19 @@ export const contentData: UserBackground = [
         name: "CONCEPÇÃO DE ALGORITMOS EFICIENTES, ESTÁVEIS E ESCALÁVEIS",
       },
       {
-        url: "https://certificado.estacio.br/20c422467163e63f5e79611",
+        url: "https://drive.google.com/file/d/1xiOtPuh0a_4h6AWNGCV4h0PjTyE8niS4/view?usp=sharing",
         name: "GERÊNCIA,ORGANIZAÇÃO E RECUPERAÇÃO DAS INFORMAÇÕES",
       },
       {
-        url: "https://certificado.estacio.br/0971e7699bf437a3ac71fb1",
+        url: "https://drive.google.com/file/d/1xiOtPuh0a_4h6AWNGCV4h0PjTyE8niS4/view?usp=sharing",
         name: "PROGRAMAÇÃO DE SISTEMAS DE INFORMAÇÃO",
       },
       {
-        url: "https://certificado.estacio.br/21da208fa5adcd6886da76f",
+        url: "https://drive.google.com/file/d/1xiOtPuh0a_4h6AWNGCV4h0PjTyE8niS4/view?usp=sharing",
         name: "PROGRAMAÇÃO PARA INTERNET",
       },
       {
-       url: "https://certificado.estacio.br/d721cfcd472504f126d7deb",
+       url: "https://drive.google.com/file/d/1sUtlb_UEGq6311YbM4tpDZmUnQmYVwop/view?usp=sharing",
         name: "CONEXÃO COMUNITÁRIA E PRÁTICA TRANSFORMADORA",
       }
     ],
